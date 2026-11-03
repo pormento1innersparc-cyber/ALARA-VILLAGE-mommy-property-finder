@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://alara-village-mommypropertyfinder.vercel.app/sitemap.xml
