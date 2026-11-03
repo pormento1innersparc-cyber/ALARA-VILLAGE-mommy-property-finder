@@ -255,6 +255,16 @@
     .life-copy p { margin-top: 1rem; color: var(--muted); }
     .life-number { display: flex; align-items: center; gap: .7rem; color: var(--brass); font-size: .68rem; letter-spacing: .16em; }
     .life-number:after { display: block; width: 42px; height: 1px; background: var(--brass); content: ""; }
+    .amenity-story-panel:not(.reverse) .amenity-film-frame { grid-column: 1; grid-row: 1; }
+    .amenity-story-panel:not(.reverse) .life-copy { grid-column: 2; grid-row: 1; }
+    .amenity-story-panel.reverse .amenity-film-frame { grid-column: 2; grid-row: 1; }
+    .amenity-story-panel.reverse .life-copy { grid-column: 1; grid-row: 1; }
+    .amenity-film-frame { position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; border: 1px solid rgba(184,151,90,.55); background: radial-gradient(ellipse at 50% 42%, rgba(62,91,69,.7), transparent 58%), linear-gradient(145deg,#1b3828,#091a11); box-shadow: 0 24px 60px -36px rgba(16,43,33,.68); isolation: isolate; }
+    .amenity-film-frame:after { position: absolute; inset: .8rem; z-index: 1; border: 1px solid rgba(246,243,236,.34); content: ""; pointer-events: none; }
+    .amenity-story-video { position: absolute; inset: 0; display: block; width: 100%; height: 100%; background: #0b1710; object-fit: cover; opacity: 0; transition: opacity .4s ease; }
+    .amenity-film-frame.is-loaded .amenity-story-video { opacity: 1; }
+    .amenity-film-question { margin: .8rem 0 0; color: var(--forest); font-family: var(--serif); font-size: clamp(1.8rem,3.6vw,2.7rem); font-style: italic; line-height: 1.12; }
+    .amenity-film-description { margin-top: 1rem; color: var(--muted); }
     .life-closing { display: flex; align-items: center; justify-content: space-between; gap: 2rem; margin-top: clamp(3.5rem, 6vw, 5.5rem); padding-top: 1.4rem; border-top: 1px solid rgba(28,61,41,.2); }
     .life-closing p { max-width: 32rem; margin: 0; color: var(--muted); }
     .life-cta { flex: 0 0 auto; padding: .75rem 1.2rem; border: 1px solid var(--forest); border-radius: 999px; color: var(--forest); font-size: .76rem; letter-spacing: .12em; text-transform: uppercase; transition: background .3s ease, color .3s ease, transform .3s var(--ease); }
@@ -586,6 +596,8 @@
       .masterplan-copy { align-items: flex-start; flex-direction: column; gap: 1.25rem; }
       .masterplan-copy p { font-size: .95rem; }
       .life-panel, .life-panel.reverse { grid-template-columns: 1fr; gap: 2rem; }
+      .amenity-story-section .amenity-story-panel .amenity-film-frame, .amenity-story-section .amenity-story-panel .life-copy { grid-column: 1; grid-row: auto; }
+      .amenity-film-frame { aspect-ratio: 16 / 10; }
       .life-panel.reverse .life-image-wrap, .life-panel.reverse .life-copy { grid-column: auto; grid-row: auto; }
       .life-panel:nth-child(2) .life-image-wrap, .life-panel:nth-child(4) .life-image-wrap { justify-self: start; }
       .life-copy { max-width: 34rem; }
@@ -673,6 +685,8 @@
     }
     @media (max-width: 540px) {
       body { font-size: 16px; }
+      .hero h1 { max-width: 12ch; font-size: clamp(2.3rem, 10vw, 3.35rem); line-height: 1.05; letter-spacing: -.025em; text-wrap: balance; }
+      .hero-line > span { max-width: 100%; }
       header { padding: .45rem 0; }
       header.scrolled { padding: .34rem 0; }
       .bar { gap: .55rem; }
@@ -685,16 +699,16 @@
       .model-info ul { grid-template-columns: 1fr; }
       .hero-intro, .footer-row { align-items: flex-start; flex-direction: column; }
       .hero-intro .btn { width: 100%; text-align: center; }
-      .hero-cta-row { width: 100%; justify-content: flex-start; gap: .8rem; }
-      .hero-intro .hero-cta-row .btn { width: auto; min-width: 0; flex: 0 0 auto; justify-content: center; gap: .5rem; padding: .38rem .82rem .38rem .4rem; font-size: .7rem; letter-spacing: .12em; white-space: nowrap; }
-      .hero-cta-row .btn:before { width: 34px; height: 34px; flex: 0 0 34px; font-size: 1rem; }
-      .hero-cta-row .hero-secondary-cta { flex: 0 0 auto; margin-top: 1.25rem; padding: .68rem .9rem; gap: .45rem; font-size: .68rem; letter-spacing: .11em; white-space: nowrap; }
+      .hero-cta-row { display: flex !important; width: 100%; flex-direction: row !important; align-items: center; justify-content: space-between; gap: .35rem; }
+      .hero-intro .hero-cta-row .btn { order: 2; width: calc(50% - .18rem); min-width: 0; min-height: 46px; flex: 0 0 calc(50% - .18rem); justify-content: center; gap: .26rem; margin-top: 1.25rem; padding: .3rem .28rem; font-size: .53rem; letter-spacing: .035em; line-height: 1.15; text-align: center; white-space: normal; }
+      .hero-cta-row .btn:before { width: 24px; height: 24px; flex: 0 0 24px; font-size: .82rem; }
+      .hero-cta-row .hero-secondary-cta { order: 1; width: calc(50% - .18rem); min-width: 0; min-height: 46px; flex: 0 0 calc(50% - .18rem); justify-content: center; margin-top: 1.25rem; padding: .3rem .14rem; gap: .2rem; border: 0; border-bottom: 1px solid rgba(246,243,236,.38); border-radius: 0; background: transparent; font-size: .5rem; letter-spacing: .025em; line-height: 1.15; text-align: center; white-space: normal; }
     }
     @media (max-width: 360px) {
-      .hero-cta-row { gap: .42rem; }
-      .hero-intro .hero-cta-row .btn { gap: .3rem; padding: .33rem .45rem .33rem .32rem; font-size: .63rem; letter-spacing: .07em; }
-      .hero-cta-row .btn:before { width: 28px; height: 28px; flex-basis: 28px; }
-      .hero-cta-row .hero-secondary-cta { padding: .52rem .55rem; gap: .27rem; font-size: .6rem; letter-spacing: .07em; }
+      .hero-cta-row { gap: .24rem; }
+      .hero-intro .hero-cta-row .btn { gap: .16rem; padding: .28rem .18rem; font-size: .46rem; letter-spacing: .01em; }
+      .hero-cta-row .btn:before { width: 22px; height: 22px; flex-basis: 22px; }
+      .hero-cta-row .hero-secondary-cta { padding: .28rem .08rem; gap: .14rem; font-size: .44rem; letter-spacing: 0; }
     }
       /* Alara amenity explorer: interactive plan and video viewer */
     .amenity-section { position: relative; margin: clamp(3.5rem, 7vw, 5.5rem) 0 0; padding-top: clamp(2rem, 4.2vw, 3.25rem); border-top: 1px solid rgba(184,151,90,.36); }
@@ -909,7 +923,7 @@
         <svg class="brand-mark" viewBox="236 184 580 534" aria-hidden="true"><path fill="var(--sage)" d="M247 705C240 560 330 400 555 348C563 400 552 470 502 540C440 620 340 695 247 705Z"/><path fill="var(--green)" d="M401 195Q401 194 412 194C560 196 680 270 738 402C715 375 670 340 585 326C530 313 470 315 415 314Q401 314 401 300Z"/><path fill="var(--green)" d="M590 348C650 352 710 385 735 430C750 460 760 500 775 560L805 685Q807 706 785 706L650 706Q640 706 638 695L586 360Q585 348 598 348Z"/></svg>
         <span class="brand-name">ALARA<br>VILLAGE</span>
       </a>
-      <a class="header-visit book-visit-trigger" href="#visit-alara">Request a Private Tour <span aria-hidden="true">↗</span></a>
+      <a class="header-visit book-visit-trigger" href="#visit-alara">REQUEST A PRIVATE TOUR <span aria-hidden="true">↗</span></a>
     </div>
   </header>
 
@@ -919,10 +933,10 @@
       <div class="hero-content">
         <div class="wrap hero-main">
           <div class="hero-kicker"><span>THE ALARA COLLECTION</span><i></i><span>PRIVATE RESIDENCES</span></div>
-          <h1><span class="hero-line"><span>Room to live</span></span><span class="hero-line"><span><em>beautifully.</em></span></span></h1>
+          <h1><span class="hero-line"><span>Made for the</span></span><span class="hero-line"><span><em>Moments That Matter</em></span></span></h1>
           <div class="hero-intro">
             <p>Four considered residences shaped by light, landscape, and room to breathe. An address made for living well.</p>
-            <div class="hero-cta-row"><a class="btn" href="#models">View the collection</a><a class="hero-secondary-cta book-visit-trigger" href="#visit-alara">Request a Private Tour <span>↗</span></a></div>
+            <div class="hero-cta-row"><a class="btn" href="#models">EXPLORE ALARA HOMES</a><a class="hero-secondary-cta book-visit-trigger" href="#visit-alara">REQUEST A PRIVATE TOUR <span>↗</span></a></div>
           </div>
           <div class="hero-caption"><span>Alara Village</span><i></i><span>Imus, Cavite</span></div>
         </div>
@@ -958,27 +972,27 @@
         </div>
         <div class="life-story">
           <article class="life-panel">
-            <div class="life-image-wrap"><img class="life-image" src="https://drive.google.com/thumbnail?id=19alHGuTpIS0tLAZeXS44_1brxirPh8Pz&sz=w1200" alt="Family enjoying breakfast together in a bright Alara Village home" loading="lazy"></div>
+            <div class="life-image-wrap"><img class="life-image" src="https://res.cloudinary.com/suzncxm2/image/upload/v1793692978/Gemini_Generated_Image_b9xkv9b9xkv9b9xk.jpg" alt="Family enjoying breakfast together in a bright Alara Village home" loading="lazy"></div>
             <div class="life-copy"><div class="life-number">01 <span>Slow mornings</span></div><h3>Everyday moments, beautifully made.</h3><p>Sunlit mornings and breakfast together set the tone for a home filled with warmth, ease, and connection.</p></div>
           </article>
           <article class="life-panel reverse">
-            <div class="life-image-wrap"><img class="life-image" src="https://drive.google.com/thumbnail?id=1oUb9ZGRsjWqm2acS11KGrykqKKaWlgRC&sz=w1200" alt="Children running together through a green Alara Village garden" loading="lazy"></div>
+            <div class="life-image-wrap"><img class="life-image" src="https://res.cloudinary.com/suzncxm2/image/upload/v1793692978/Gemini_Generated_Image_qysug5qysug5qysu.jpg" alt="Children running together through a green Alara Village garden" loading="lazy"></div>
             <div class="life-copy"><div class="life-number">02 <span>Room to grow</span></div><h3>Space for a little more freedom.</h3><p>Green paths and open-air places make it easy for children to play, explore, and grow up with room to breathe.</p></div>
           </article>
           <article class="life-panel">
-            <div class="life-image-wrap"><img class="life-image" src="https://drive.google.com/thumbnail?id=12OTjUbeuh7Y1muzHKr33e1BbpgOlqnVS&sz=w1200" alt="Family bowing their heads in prayer together before a meal" loading="lazy"></div>
+            <div class="life-image-wrap"><img class="life-image" src="https://res.cloudinary.com/suzncxm2/image/upload/v1793692978/Gemini_Generated_Image_z4injxz4injxz4in.jpg" alt="Family bowing their heads in prayer together before a meal" loading="lazy"></div>
             <div class="life-copy"><div class="life-number">03 <span>Grateful moments</span></div><h3>A moment to give thanks.</h3><p>Gathered around the table, the family shares a quiet prayer and gives thanks for the moments they have together.</p></div>
           </article>
           <article class="life-panel reverse">
-            <div class="life-image-wrap"><img class="life-image" src="https://drive.google.com/thumbnail?id=1_8RD662RByjJE5ot3JMiQRHuZ6OXK6vs&sz=w1200" alt="Couple looking over home plans together in their future Alara Village home" loading="lazy"></div>
+            <div class="life-image-wrap"><img class="life-image" src="https://res.cloudinary.com/suzncxm2/image/upload/v1793692978/Gemini_Generated_Image_heetx8heetx8heet.jpg" alt="Couple looking over home plans together in their future Alara Village home" loading="lazy"></div>
             <div class="life-copy"><div class="life-number">04 <span>Your next chapter</span></div><h3>A home shaped around your life.</h3><p>Thoughtful spaces, generous light, and a setting that makes planning for the future feel natural.</p></div>
           </article>
           <article class="life-panel">
-            <div class="life-image-wrap"><img class="life-image" src="https://drive.google.com/thumbnail?id=15HwcEKKhP_m-1qw3dmc3K4c8Mztg0pdm&sz=w1200" alt="Family welcoming a parent home to an Alara Village residence" loading="lazy"></div>
+            <div class="life-image-wrap"><img class="life-image" src="https://res.cloudinary.com/suzncxm2/image/upload/v1793692978/Gemini_Generated_Image_hq7s13hq7s13hq7s.jpg" alt="Family welcoming a parent home to an Alara Village residence" loading="lazy"></div>
             <div class="life-copy"><div class="life-number">05 <span>Coming home</span></div><h3>The feeling of being expected.</h3><p>A place where every return feels familiar, warm, and completely yours.</p></div>
           </article>
         </div>
-        <div class="life-closing"><p>Discover a community designed around the way you want to live.</p><a class="life-cta book-visit-trigger" href="#visit-alara">Request a Private Tour <span aria-hidden="true">↗</span></a></div>
+        <div class="life-closing"><p>Discover a community designed around the way you want to live.</p><a class="life-cta book-visit-trigger" href="#visit-alara">REQUEST A PRIVATE TOUR <span aria-hidden="true">↗</span></a></div>
       </div>
     </section>
 
@@ -1042,7 +1056,7 @@
               <button class="location-choice" type="button" data-number="02" data-location="1" role="tab" aria-selected="false">The District Imus</button>
               <button class="location-choice" type="button" data-number="03" data-location="2" role="tab" aria-selected="false">Riverpark</button>
               <button class="location-choice" type="button" data-number="04" data-location="3" role="tab" aria-selected="false">Ateneo General Trias</button>
-              <button class="location-choice" type="button" data-number="05" data-location="4" role="tab" aria-selected="false">SM Center Imus</button>
+              <button class="location-choice" type="button" data-number="05" data-location="4" role="tab" aria-selected="false">SM City General Trias</button>
               <button class="location-choice" type="button" data-number="06" data-location="5" role="tab" aria-selected="false">South Imus Specialist Hospital</button>
             </div>
             <div class="location-links">
@@ -1051,9 +1065,57 @@
               <a target="_blank" rel="noopener noreferrer" href="https://www.google.com/maps/search/?api=1&query=14.364467764853634%2C120.91682125104765">Open in Google Maps</a>
             </div>
           </div>
-          <div class="location-stage"><img id="locationImage" src="https://drive.google.com/thumbnail?id=1gahVgklq-EG9PgtrYRWHTQqUYnmSODXx&sz=w1600" alt="CALAX Open Canal Exit" class="visible"><div class="location-progress" id="locationProgress" aria-hidden="true"><span></span></div></div>
+          <div class="location-stage"><img id="locationImage" src="https://res.cloudinary.com/suzncxm2/image/upload/v1793696214/Gemini_Generated_Image_ych69nych69nych6.jpg" alt="CALAX Open Canal Exit" class="visible"><div class="location-progress" id="locationProgress" aria-hidden="true"><span></span></div></div>
         </div>
         <p class="location-note">Approximate drive times from Alara; actual times vary with route and traffic.</p>
+      </div>
+    </section>
+
+    <section class="life-section amenity-story-section" id="amenities-at-alara" aria-labelledby="amenityStoriesTitle">
+      <div class="wrap">
+        <div class="life-intro">
+          <div class="eyebrow">Amenities at Alara</div>
+          <h2 id="amenityStoriesTitle">Everyday Living, Made Better</h2>
+          <p class="lead">Explore the shared spaces that can bring more ease, connection, and time outdoors to everyday life.</p>
+        </div>
+        <div class="life-story amenity-story-list">
+          <article class="life-panel amenity-story-panel">
+            <div class="amenity-film-frame" data-amenity-film>
+              <video class="amenity-story-video" id="amenityStoryVideo01" data-video-src="https://res.cloudinary.com/suzncxm2/video/upload/v1793301920/entrancegate.mp4" autoplay muted loop playsinline preload="none" aria-hidden="true"></video>
+            </div>
+            <div class="life-copy"><div class="life-number">01 <span>Entrance Gate</span></div><h3 class="amenity-film-question">Looking for added privacy as you come home?</h3><p class="amenity-film-description">A defined, gated entrance creates a more controlled point of access and a reassuring welcome into the community.</p></div>
+          </article>
+          <article class="life-panel reverse amenity-story-panel">
+            <div class="amenity-film-frame" data-amenity-film>
+              <video class="amenity-story-video" id="amenityStoryVideo02" data-video-src="https://res.cloudinary.com/suzncxm2/video/upload/v1793301921/midpark1.mp4" autoplay muted loop playsinline preload="none" aria-hidden="true"></video>
+            </div>
+            <div class="life-copy"><div class="life-number">02 <span>Midpark 1</span></div><h3 class="amenity-film-question">Need a quiet place to pause close to home?</h3><p class="amenity-film-description">Midpark 1 offers a green pocket for a short walk, a breath of fresh air, or a slower moment in the day.</p></div>
+          </article>
+          <article class="life-panel amenity-story-panel">
+            <div class="amenity-film-frame" data-amenity-film>
+              <video class="amenity-story-video" id="amenityStoryVideo03" data-video-src="https://res.cloudinary.com/suzncxm2/video/upload/v1793301920/forestpark.mp4" autoplay muted loop playsinline preload="none" aria-hidden="true"></video>
+            </div>
+            <div class="life-copy"><div class="life-number">03 <span>Forest Park</span></div><h3 class="amenity-film-question">Want nature to feel closer to everyday life?</h3><p class="amenity-film-description">With a leafy park within the community, a slower walk and time outdoors can become part of your routine.</p></div>
+          </article>
+          <article class="life-panel reverse amenity-story-panel">
+            <div class="amenity-film-frame" data-amenity-film>
+              <video class="amenity-story-video" id="amenityStoryVideo04" data-video-src="https://res.cloudinary.com/suzncxm2/video/upload/v1793301920/midpark2.mp4" autoplay muted loop playsinline preload="none" aria-hidden="true"></video>
+            </div>
+            <div class="life-copy"><div class="life-number">04 <span>Midpark 2</span></div><h3 class="amenity-film-question">Looking for a shared place to connect outdoors?</h3><p class="amenity-film-description">This shared green space gives neighbors and families another place to walk, gather, and enjoy simple moments together.</p></div>
+          </article>
+          <article class="life-panel amenity-story-panel">
+            <div class="amenity-film-frame" data-amenity-film>
+              <video class="amenity-story-video" id="amenityStoryVideo05" data-video-src="https://res.cloudinary.com/suzncxm2/video/upload/v1793301920/tricourt.mp4" autoplay muted loop playsinline preload="none" aria-hidden="true"></video>
+            </div>
+            <div class="life-copy"><div class="life-number">05 <span>Play Area Tri-Court</span></div><h3 class="amenity-film-question">Want children to have space to move and play?</h3><p class="amenity-film-description">The play area and tri-court create a nearby setting for outdoor games, movement, and family activity.</p></div>
+          </article>
+          <article class="life-panel reverse amenity-story-panel">
+            <div class="amenity-film-frame" data-amenity-film>
+              <video class="amenity-story-video" id="amenityStoryVideo06" data-video-src="https://res.cloudinary.com/suzncxm2/video/upload/v1793301919/clubhousepool.mp4" autoplay muted loop playsinline preload="none" aria-hidden="true"></video>
+            </div>
+            <div class="life-copy"><div class="life-number">06 <span>Clubhouse Pool</span></div><h3 class="amenity-film-question">Would a place to unwind nearby make life easier?</h3><p class="amenity-film-description">The clubhouse pool offers a community setting to cool off, relax, and enjoy time together.</p></div>
+          </article>
+        </div>
       </div>
     </section>
 
@@ -1101,7 +1163,7 @@
           <div class="amenity-video-stage">
             <video class="inline-video-player" id="inlineVideoPlayer" controls playsinline preload="metadata" disablepictureinpicture controlslist="nodownload noremoteplayback" aria-label="Selected Alara Village amenity video">
               <source id="inlineVideoSource" src="" type="video/mp4">
-              Hindi ma-load ang video. Paki-refresh ang page at subukan ulit.
+              Unable to load the video. Please refresh the page and try again.
             </video>
           </div>
           <div class="amenity-video-info">
@@ -1119,7 +1181,7 @@
 
         <div class="masterplan">
           <div class="masterplan-image-frame" id="masterplanTrigger" role="button" tabindex="0" aria-label="Open Alara Village masterplan in full size"><img class="masterplan-image" src="https://drive.google.com/thumbnail?id=1VahIM2W9a2pWCrtzaxaeqySA71pktaP1&sz=w2000" alt="Aerial masterplan of Alara Village showing homes, roads, river and amenities" loading="lazy"></div>
-          <div class="masterplan-copy"><div><div class="eyebrow">Alara Village · Masterplan</div><h3>A place designed for living well.</h3><p>A thoughtfully planned community shaped by greenery, connection, and room to breathe.</p></div><a class="masterplan-cta book-visit-trigger" href="#visit-alara">Request a Private Tour <span aria-hidden="true">↗</span></a></div>
+          <div class="masterplan-copy"><div><div class="eyebrow">Alara Village · Masterplan</div><h3>A place designed for living well.</h3><p>A thoughtfully planned community shaped by greenery, connection, and room to breathe.</p></div><a class="masterplan-cta book-visit-trigger" href="#visit-alara">REQUEST A PRIVATE TOUR <span aria-hidden="true">↗</span></a></div>
         </div>
       </div>
     </section>
@@ -1137,7 +1199,7 @@
               <div class="visit-time-row"><div class="visit-side"><div class="eyebrow">Your preferred schedule</div><h3>Select a time</h3><div class="visit-time-input"><input id="visitTime" type="time" min="09:00" max="18:00" step="300" aria-label="Preferred visit time" required></div><p class="visit-time-note">Choose any time between 9:00 AM and 6:00 PM, in five-minute increments. We will confirm availability with you.</p></div></div>
               <div class="visit-calendar" aria-label="Choose a visit date"><button class="visit-calendar-toggle" id="visitCalendarToggle" type="button" aria-expanded="false"><span>Preferred visit date</span><strong id="visitSelectedDate">Select a date</strong><span aria-hidden="true">⌄</span></button><div class="visit-calendar-popover" id="visitCalendarPopover"><div class="visit-calendar-head"><div class="visit-month" id="visitMonthLabel"></div><div class="visit-month-actions"><button id="visitPrevMonth" type="button" aria-label="Previous month">←</button><button id="visitNextMonth" type="button" aria-label="Next month">→</button></div></div><div class="visit-weekdays" aria-hidden="true"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div><div class="visit-days" id="visitDays" role="grid" aria-label="Available visit dates"></div><p class="visit-availability">Viewings are available Tuesday to Sunday. Mondays are reserved for the Alara team.</p></div></div>
             </div>
-            <div class="visit-error" id="visitError" role="alert"></div><button class="btn visit-submit" id="visitSubmit" type="submit">Request this visit</button>
+            <div class="visit-error" id="visitError" role="alert"></div><button class="btn visit-submit" id="visitSubmit" type="submit">REQUEST A PRIVATE TOUR</button>
           </form>
         </div>
         <div class="visit-success" id="visitSuccess" role="status"><div class="visit-success-mark">✓</div><h3>Your visit is requested.</h3><p id="visitSuccessText">We will confirm your preferred schedule shortly and prepare a more personal welcome at Alara.</p><button class="btn" id="visitDone" type="button">Done</button></div>
@@ -1164,7 +1226,7 @@
           </div>
           <div class="agent-about-actions">
             <a class="hero-secondary-cta" href="#models">Explore Alara homes <span aria-hidden="true">↗</span></a>
-            <a class="agent-about-visit book-visit-trigger" href="#visit-alara">Plan a private visit <span aria-hidden="true">↗</span></a>
+            <a class="agent-about-visit book-visit-trigger" href="#visit-alara">REQUEST A PRIVATE TOUR <span aria-hidden="true">↗</span></a>
           </div>
           <p class="agent-about-note">Your next step, whenever you are ready.</p>
         </div>
@@ -1198,7 +1260,7 @@
           <h2 class="footer-heading">Speak with our agent</h2>
           <a class="footer-contact" href="tel:+639937261835">0993 726 1835</a>
           <a class="footer-contact" href="mailto:martincynthia9210@gmail.com">martincynthia9210@gmail.com</a>
-          <a class="footer-visit book-visit-trigger" href="#visit-alara">Book a private visit <span aria-hidden="true">↗</span></a>
+          <a class="footer-visit book-visit-trigger" href="#visit-alara">REQUEST A PRIVATE TOUR <span aria-hidden="true">↗</span></a>
         </div>
       </div>
       <div class="footer-bottom">
@@ -1361,12 +1423,12 @@
       }
       function setupLocationExplorer() {
         var destinations = [
-          { name: "CALAX Open Canal Exit", category: "Connectivity", description: "A direct connection to the wider Cavite and Metro Manila corridor.", time: "2–3 min", image: "https://drive.google.com/thumbnail?id=1gahVgklq-EG9PgtrYRWHTQqUYnmSODXx&sz=w1600" },
-          { name: "The District Imus", category: "Shopping · Dining · Leisure", description: "Everyday essentials, dining, and leisure close to home.", time: "4–6 min", image: "https://drive.google.com/thumbnail?id=1hkOIfhQo5D1UiLEBhI1SgyietQokFEck&sz=w1600" },
-          { name: "Riverpark", category: "Lifestyle · Dining · Leisure", description: "A growing destination for dining, leisure, and everyday experiences.", time: "4–6 min", image: "https://drive.google.com/thumbnail?id=10UnfWPUFsc32mPvsZL_sXXWfcl_mDHK6&sz=w1600" },
-          { name: "Ateneo General Trias", category: "Education", description: "A respected academic institution within the growing Riverpark community.", time: "5–8 min", image: "https://drive.google.com/thumbnail?id=18tRId2o4bjf38aSxPpx6EXiLX1AeeI-U&sz=w1600" },
-          { name: "SM Center Imus", category: "Shopping · Essentials", description: "Convenient shopping, dining, and everyday essentials nearby.", time: "6–10 min", image: "https://drive.google.com/thumbnail?id=1bivGII8GQITVQkT8NoYmpgapmauMcNyu&sz=w1600" },
-          { name: "South Imus Specialist Hospital", category: "Healthcare", description: "Reliable healthcare support within the surrounding community.", time: "12–15 min", image: "https://drive.google.com/thumbnail?id=1mR7aE3l_rCZREU7lgGiNbRSrlQvLjRF2&sz=w1600" }
+          { name: "CALAX Open Canal Exit", category: "Connectivity", description: "A direct connection to the wider Cavite and Metro Manila corridor.", time: "2–3 min", image: "https://res.cloudinary.com/suzncxm2/image/upload/v1793696214/Gemini_Generated_Image_ych69nych69nych6.jpg" },
+          { name: "The District Imus", category: "Shopping · Dining · Leisure", description: "Everyday essentials, dining, and leisure close to home.", time: "4–6 min", image: "https://res.cloudinary.com/suzncxm2/image/upload/v1793696206/Gemini_Generated_Image_79gmg479gmg479gm.jpg" },
+          { name: "Riverpark", category: "Lifestyle · Dining · Leisure", description: "A growing destination for dining, leisure, and everyday experiences.", time: "4–6 min", image: "https://res.cloudinary.com/suzncxm2/image/upload/v1793696206/Gemini_Generated_Image_onnqcuonnqcuonnq.jpg" },
+          { name: "Ateneo General Trias", category: "Education", description: "A respected academic institution within the growing Riverpark community.", time: "5–8 min", image: "https://res.cloudinary.com/suzncxm2/image/upload/v1793696206/Gemini_Generated_Image_7ylei27ylei27yle.jpg" },
+          { name: "SM City General Trias", category: "Shopping · Essentials", description: "Convenient shopping, dining, and everyday essentials nearby.", time: "6–10 min", image: "https://res.cloudinary.com/suzncxm2/image/upload/v1793696207/SM_City_General_Trias_Under_Blue_Skies.png" },
+          { name: "South Imus Specialist Hospital", category: "Healthcare", description: "Reliable healthcare support within the surrounding community.", time: "12–15 min", image: "https://res.cloudinary.com/suzncxm2/image/upload/v1793696206/Gemini_Generated_Image_wqp2otwqp2otwqp2.jpg" }
         ];
         var section = document.querySelector(".nearby-section"), layout = document.querySelector(".nearby-section .location-layout"), image = byId("locationImage"), stage = image.parentNode, progress = byId("locationProgress"), progressFill = progress ? progress.querySelector("span") : null, summary = byId("locationSummary"), list = byId("locationList"), category = byId("locationCategory"), name = byId("locationName"), description = byId("locationDescription"), time = byId("locationTime"), buttons = document.querySelectorAll(".location-choice"), touchStartX = 0, touchStartY = 0, imageRequest = 0, rotationTimer = null, rotationPaused = false, activeIndex = 0, i;
         function clearRotation() { if (rotationTimer) { window.clearTimeout(rotationTimer); rotationTimer = null; } }
@@ -1516,7 +1578,7 @@
         function prettyTime(value) { var parts = value.split(":"), hour = Number(parts[0]), minute = parts[1], suffix = hour >= 12 ? "PM" : "AM"; hour = hour % 12 || 12; return hour + ":" + minute + " " + suffix; }
         function available(date) { var start = new Date(today.getFullYear(), today.getMonth(), today.getDate()); var limit = new Date(start.getFullYear(), start.getMonth(), start.getDate() + 90); return date >= start && date <= limit && date.getDay() !== 1; }
         function renderCalendar() { var year = cursor.getFullYear(), month = cursor.getMonth(), first = new Date(year, month, 1), total = new Date(year, month + 1, 0).getDate(), i, date, button, blank; monthLabel.textContent = cursor.toLocaleDateString("en-US", { month: "long", year: "numeric" }); days.innerHTML = ""; for (i = 0; i < first.getDay(); i += 1) { blank = document.createElement("span"); blank.className = "visit-day muted"; blank.setAttribute("aria-hidden", "true"); days.appendChild(blank); } for (i = 1; i <= total; i += 1) { date = new Date(year, month, i); button = document.createElement("button"); button.className = "visit-day"; button.type = "button"; button.textContent = i; button.setAttribute("role", "gridcell"); button.setAttribute("aria-label", labelDate(date)); if (key(date) === key(today)) button.className += " today"; if (!available(date)) button.disabled = true; if (selectedDate && key(date) === key(selectedDate)) { button.className += " selected"; button.setAttribute("aria-selected", "true"); } button.addEventListener("click", function () { selectedDate = new Date(year, month, Number(this.textContent)); selectedLabel.textContent = labelDate(selectedDate); calendarPopover.className = "visit-calendar-popover"; calendarToggle.className = "visit-calendar-toggle"; calendarToggle.setAttribute("aria-expanded", "false"); error.textContent = ""; renderCalendar(); }); days.appendChild(button); } prev.disabled = year === today.getFullYear() && month <= today.getMonth(); }
-        function open() { modal.className = "visit-modal open"; modal.setAttribute("aria-hidden", "false"); document.body.className += " visit-modal-open"; bookingView.style.display = "block"; success.className = "visit-success"; error.textContent = ""; submit.disabled = false; submit.className = "btn visit-submit"; submit.textContent = "Request this visit"; if (!selectedDate) { selectedDate = new Date(today.getFullYear(), today.getMonth(), today.getDate()); if (!available(selectedDate)) selectedDate.setDate(selectedDate.getDate() + 1); selectedLabel.textContent = "Select your preferred day"; } renderCalendar(); window.setTimeout(function () { close.focus(); }, 20); }
+        function open() { modal.className = "visit-modal open"; modal.setAttribute("aria-hidden", "false"); document.body.className += " visit-modal-open"; bookingView.style.display = "block"; success.className = "visit-success"; error.textContent = ""; submit.disabled = false; submit.className = "btn visit-submit"; submit.textContent = "REQUEST A PRIVATE TOUR"; if (!selectedDate) { selectedDate = new Date(today.getFullYear(), today.getMonth(), today.getDate()); if (!available(selectedDate)) selectedDate.setDate(selectedDate.getDate() + 1); selectedLabel.textContent = "Select your preferred day"; } renderCalendar(); window.setTimeout(function () { close.focus(); }, 20); }
         function shut() { modal.className = "visit-modal"; modal.setAttribute("aria-hidden", "true"); document.body.className = document.body.className.replace(" visit-modal-open", ""); }
         var triggers = document.querySelectorAll(".book-visit-trigger"), i;
         for (i = 0; i < triggers.length; i += 1) triggers[i].addEventListener("click", function (event) { event.preventDefault(); open(); });
@@ -1526,7 +1588,7 @@
         for (i = 0; i < modelChoices.length; i += 1) (function (choice) { choice.addEventListener("click", function () { var j; modelSelect.value = choice.getAttribute("data-model"); for (j = 0; j < modelChoices.length; j += 1) { modelChoices[j].className = modelChoices[j] === choice ? "visit-model-choice selected" : "visit-model-choice"; modelChoices[j].setAttribute("aria-checked", modelChoices[j] === choice ? "true" : "false"); } }); }(modelChoices[i]));
         timeInput.addEventListener("input", function () { error.textContent = ""; });
         close.addEventListener("click", shut, false); done.addEventListener("click", shut, false); modal.addEventListener("click", function (event) { if (event.target === modal) shut(); }, false); document.addEventListener("keydown", function (event) { if (event.key === "Escape" && modal.className.indexOf("open") !== -1) shut(); }, false);
-        form.addEventListener("submit", function (event) { var data; event.preventDefault(); if (!selectedDate || selectedLabel.textContent === "Select your preferred day") { error.textContent = "Please choose a date."; calendarPopover.className = "visit-calendar-popover open"; calendarToggle.className = "visit-calendar-toggle open"; return; } if (!timeInput.value) { error.textContent = "Please enter your preferred time."; timeInput.focus(); return; } if (!form.checkValidity()) { form.reportValidity(); return; } data = { name: byId("visitName").value, email: byId("visitEmail").value, phone: byId("visitPhone").value, model: byId("visitModel").value, message: byId("visitNote").value, date: key(selectedDate), dateLabel: labelDate(selectedDate), time: prettyTime(timeInput.value) }; submit.disabled = true; submit.className = "btn visit-submit is-submitting"; submit.textContent = "Sending request..."; function showSuccess() { submit.className = "btn visit-submit is-success"; submit.textContent = "Request received"; window.setTimeout(function () { bookingView.style.display = "none"; success.className = "visit-success visible"; successText.textContent = "We will confirm " + data.dateLabel + " at " + data.time + " shortly and prepare a more personal welcome at Alara."; }, 480); } function showFailure(failure) { submit.disabled = false; submit.className = "btn visit-submit"; submit.textContent = "Request this visit"; error.textContent = failure && failure.message ? failure.message : "Unable to submit your visit request."; } apiPost("submitVisitBooking", data, showSuccess, showFailure); });
+        form.addEventListener("submit", function (event) { var data; event.preventDefault(); if (!selectedDate || selectedLabel.textContent === "Select your preferred day") { error.textContent = "Please choose a date."; calendarPopover.className = "visit-calendar-popover open"; calendarToggle.className = "visit-calendar-toggle open"; return; } if (!timeInput.value) { error.textContent = "Please enter your preferred time."; timeInput.focus(); return; } if (!form.checkValidity()) { form.reportValidity(); return; } data = { name: byId("visitName").value, email: byId("visitEmail").value, phone: byId("visitPhone").value, model: byId("visitModel").value, message: byId("visitNote").value, date: key(selectedDate), dateLabel: labelDate(selectedDate), time: prettyTime(timeInput.value) }; submit.disabled = true; submit.className = "btn visit-submit is-submitting"; submit.textContent = "Sending request..."; function showSuccess() { submit.className = "btn visit-submit is-success"; submit.textContent = "Request received"; window.setTimeout(function () { bookingView.style.display = "none"; success.className = "visit-success visible"; successText.textContent = "We will confirm " + data.dateLabel + " at " + data.time + " shortly and prepare a more personal welcome at Alara."; }, 480); } function showFailure(failure) { submit.disabled = false; submit.className = "btn visit-submit"; submit.textContent = "REQUEST A PRIVATE TOUR"; error.textContent = failure && failure.message ? failure.message : "Unable to submit your visit request."; } apiPost("submitVisitBooking", data, showSuccess, showFailure); });
         renderCalendar();
       }
       function setupMasterplanTour() {
@@ -1672,7 +1734,7 @@
         if (overlay.classList.contains("is-open")) note.textContent = "Video ready. Use the player controls to pause or replay.";
       });
       video.addEventListener("error", function () {
-        if (overlay.classList.contains("is-open")) note.textContent = "Hindi ma-load ang video. Pakisubukan ulit mamaya.";
+        if (overlay.classList.contains("is-open")) note.textContent = "Unable to load the video. Please try again later.";
       });
       document.addEventListener("keydown", function (event) {
         if (!overlay.classList.contains("is-open")) return;
@@ -1685,6 +1747,80 @@
       });
       fitFullMap();
       window.addEventListener("resize", fitFullMap);
+    }());
+  </script>
+
+  <script>
+    (function () {
+      "use strict";
+      var frames = document.querySelectorAll("[data-amenity-film]"), activeVideo = null, i;
+      function pauseFrame(frame) {
+        var video = frame.querySelector("video");
+        if (video && !video.paused) video.pause();
+        frame.classList.remove("is-playing");
+        if (activeVideo === video) activeVideo = null;
+      }
+      function playFrame(frame) {
+        var video = frame.querySelector("video"), source, request, j;
+        if (!video) return;
+        for (j = 0; j < frames.length; j += 1) if (frames[j] !== frame) pauseFrame(frames[j]);
+        source = video.getAttribute("data-video-src");
+        if (!video.getAttribute("src") && source) { video.setAttribute("src", source); video.load(); }
+        video.muted = true;
+        video.defaultMuted = true;
+        video.loop = true;
+        frame.classList.remove("is-error");
+        frame.classList.add("is-loaded");
+        request = video.play();
+        if (request && typeof request.catch === "function") request.catch(function () {
+          frame.classList.remove("is-playing");
+          frame.classList.add("is-error");
+        });
+      }
+      for (i = 0; i < frames.length; i += 1) (function (frame) {
+        var video = frame.querySelector("video");
+        if (!video) return;
+        video.addEventListener("playing", function () {
+          var j;
+          for (j = 0; j < frames.length; j += 1) if (frames[j] !== frame) pauseFrame(frames[j]);
+          frame.classList.add("is-playing");
+          activeVideo = video;
+        });
+        video.addEventListener("pause", function () { frame.classList.remove("is-playing"); });
+        video.addEventListener("error", function () {
+          frame.classList.remove("is-loaded", "is-playing");
+          frame.classList.add("is-error");
+          video.removeAttribute("src");
+          video.load();
+          if (activeVideo === video) activeVideo = null;
+        });
+      }(frames[i]));
+      var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (!reduceMotion && "IntersectionObserver" in window) {
+        var observer = new IntersectionObserver(function (entries) {
+          for (var k = 0; k < entries.length; k += 1) {
+            var entry = entries[k];
+            if (entry.isIntersecting && entry.intersectionRatio >= 0.5) playFrame(entry.target);
+            else if (!entry.isIntersecting || entry.intersectionRatio < 0.15) pauseFrame(entry.target);
+          }
+        }, { root: null, rootMargin: "0px", threshold: [0, 0.15, 0.5] });
+        for (i = 0; i < frames.length; i += 1) observer.observe(frames[i]);
+      } else if (!reduceMotion) {
+        function updateVisibleFilm() {
+          var best = null, bestRatio = 0.35;
+          for (var j = 0; j < frames.length; j += 1) {
+            var rect = frames[j].getBoundingClientRect(), height = Math.max(0, Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0)), ratio = rect.height ? height / rect.height : 0;
+            if (ratio > bestRatio) { bestRatio = ratio; best = frames[j]; }
+          }
+          if (best) {
+            var bestVideo = best.querySelector("video");
+            if (bestVideo && (activeVideo !== bestVideo || bestVideo.paused)) playFrame(best);
+          } else for (var k = 0; k < frames.length; k += 1) pauseFrame(frames[k]);
+        }
+        window.addEventListener("scroll", updateVisibleFilm, { passive: true });
+        window.addEventListener("resize", updateVisibleFilm, false);
+        updateVisibleFilm();
+      }
     }());
   </script>
 
