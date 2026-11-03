@@ -1221,6 +1221,28 @@
       var loadingDismissScheduled = false;
       var loadingDismissed = false;
       function byId(id) { return document.getElementById(id); }
+      var API_BASE_URL = "https://script.google.com/macros/s/AKfycbzCt6HbWc1omZmQq9xDicP2btlngcw_rVyVuV3izQk9Z11poOcGErMQNDzh0TRTik12/exec";
+      var isAppsScriptEnv = typeof window.google !== "undefined" && window.google.script && window.google.script.run;
+      function apiGet(action, onSuccess, onFailure) {
+        if (isAppsScriptEnv) {
+          window.google.script.run.withSuccessHandler(onSuccess).withFailureHandler(onFailure)[action]();
+          return;
+        }
+        fetch(API_BASE_URL + "?action=" + encodeURIComponent(action))
+          .then(function (response) { if (!response.ok) throw new Error("Request failed (" + response.status + ")"); return response.json(); })
+          .then(function (payload) { if (payload && payload.success === false) throw new Error(payload.message || "Request failed."); onSuccess(payload); })
+          .catch(onFailure || function (error) { console.error("Alara API GET error:", error); });
+      }
+      function apiPost(action, data, onSuccess, onFailure) {
+        if (isAppsScriptEnv) {
+          window.google.script.run.withSuccessHandler(onSuccess).withFailureHandler(onFailure)[action](data);
+          return;
+        }
+        fetch(API_BASE_URL + "?action=" + encodeURIComponent(action), { method: "POST", body: JSON.stringify(data) })
+          .then(function (response) { if (!response.ok) throw new Error("Request failed (" + response.status + ")"); return response.json(); })
+          .then(function (payload) { if (payload && payload.success === false) throw new Error(payload.message || "Request failed."); onSuccess(payload); })
+          .catch(onFailure || function (error) { console.error("Alara API POST error:", error); });
+      }
       function hideLoadingScreen() {
         var wait, minimumVisibleTime = 1550;
         if (loadingDismissScheduled || loadingDismissed) return;
@@ -1429,7 +1451,7 @@
       function setupDayTimeline() {
         var video = byId("dayVideo"), timeline = byId("dayTimeline"), progress = byId("dayProgress"), copy = byId("dayCopy"), label = byId("dayLabel"), title = byId("dayTitle"), text = byId("dayText"), current = byId("dayCurrent"), play = byId("dayPlay"), mute = byId("dayMute"), markers = document.querySelectorAll(".day-marker"), moments = [{ time: 0, label: "6:00 AM", title: "A gentler beginning.", text: "Morning light moves through the trees while the village slowly comes to life.", current: "The day begins softly" }, { time: 5, label: "8:00 AM", title: "Light finds its way in.", text: "The first hours unfold with fresh air, open skies, and an unhurried sense of possibility.", current: "A brighter early morning" }, { time: 9.5, label: "12:00 PM", title: "Room to move freely.", text: "A day shaped by open space, greenery, and the ease of having everything within reach.", current: "Life in its natural flow" }, { time: 15, label: "3:00 PM", title: "A little more time outside.", text: "Afternoons make space for movement, connection, and the simple pleasures close to home.", current: "The afternoon opens up" }, { time: 21.5, label: "6:00 PM", title: "Come home to calm.", text: "As the light softens, Alara returns to the quiet rhythm of home.", current: "The day settles beautifully" }, { time: 24, label: "10:00 PM", title: "A peaceful end to the day.", text: "Under a quieter sky, home becomes a place to rest, reset, and begin again tomorrow.", current: "Goodnight, Alara" }], active = 0, i;
         if (!video || !markers.length) return;
-        function loadAppsScriptVideo() { var runner = window.google && window.google.script && window.google.script.run; if (!runner) return; runner.withSuccessHandler(function (payload) { var binary, bytes, j; if (!payload || !payload.base64) return; binary = window.atob(payload.base64); bytes = new Uint8Array(binary.length); for (j = 0; j < binary.length; j += 1) bytes[j] = binary.charCodeAt(j); video.src = window.URL.createObjectURL(new Blob([bytes], { type: payload.mimeType || "video/mp4" })); video.load(); video.play().catch(function () {}); }).withFailureHandler(function () {}).getDayVideoBase64(); }
+        function loadAppsScriptVideo() { apiGet("getDayVideoBase64", function (payload) { var binary, bytes, j; if (!payload || !payload.base64) return; binary = window.atob(payload.base64); bytes = new Uint8Array(binary.length); for (j = 0; j < binary.length; j += 1) bytes[j] = binary.charCodeAt(j); video.src = window.URL.createObjectURL(new Blob([bytes], { type: payload.mimeType || "video/mp4" })); video.load(); video.play().catch(function () {}); }, function () {}); }
         function setMoment(index, refresh) { var moment = moments[index], j; active = index; label.textContent = moment.label; title.textContent = moment.title; text.textContent = moment.text; current.textContent = moment.current; if (refresh) { copy.className = "day-copy"; copy.offsetWidth; copy.className = "day-copy day-refresh"; } for (j = 0; j < markers.length; j += 1) { markers[j].className = j === index ? "day-marker active" : "day-marker"; markers[j].setAttribute("aria-selected", j === index ? "true" : "false"); } }
         function update() { var index = 0, j; for (j = 0; j < moments.length; j += 1) if (video.currentTime >= moments[j].time) index = j; if (index !== active) setMoment(index, true); updateTimelineProgress(index); }
         function updateTimelineProgress(index) {
@@ -1473,15 +1495,13 @@
         var form = byId("inquiryForm"), button = byId("submitButton"), success = byId("successMessage");
         if (!form) return;
         form.addEventListener("submit", function (event) {
-          var data, runner;
+          var data;
           event.preventDefault();
           if (!form.checkValidity()) { form.reportValidity(); return; }
           data = { name: byId("name").value, email: byId("email").value, phone: byId("phone").value, model: byId("model").value, message: byId("message").value };
           button.disabled = true;
           button.textContent = "Sending...";
-          runner = window.google && window.google.script && window.google.script.run;
-          if (!runner) { success.className = "success visible"; form.reset(); button.disabled = false; button.textContent = "Send inquiry"; return; }
-          runner.withSuccessHandler(function () { success.className = "success visible"; form.reset(); button.disabled = false; button.textContent = "Send inquiry"; }).withFailureHandler(function (error) { button.disabled = false; button.textContent = "Send inquiry"; window.alert(error && error.message ? error.message : "Unable to send inquiry."); }).submitInquiry(data);
+          apiPost("submitInquiry", data, function () { success.className = "success visible"; form.reset(); button.disabled = false; button.textContent = "Send inquiry"; }, function (error) { button.disabled = false; button.textContent = "Send inquiry"; window.alert(error && error.message ? error.message : "Unable to send inquiry."); });
         });
       }
       function setupVisitCalendar() {
@@ -1504,7 +1524,7 @@
         for (i = 0; i < modelChoices.length; i += 1) (function (choice) { choice.addEventListener("click", function () { var j; modelSelect.value = choice.getAttribute("data-model"); for (j = 0; j < modelChoices.length; j += 1) { modelChoices[j].className = modelChoices[j] === choice ? "visit-model-choice selected" : "visit-model-choice"; modelChoices[j].setAttribute("aria-checked", modelChoices[j] === choice ? "true" : "false"); } }); }(modelChoices[i]));
         timeInput.addEventListener("input", function () { error.textContent = ""; });
         close.addEventListener("click", shut, false); done.addEventListener("click", shut, false); modal.addEventListener("click", function (event) { if (event.target === modal) shut(); }, false); document.addEventListener("keydown", function (event) { if (event.key === "Escape" && modal.className.indexOf("open") !== -1) shut(); }, false);
-        form.addEventListener("submit", function (event) { var runner, data; event.preventDefault(); if (!selectedDate || selectedLabel.textContent === "Select your preferred day") { error.textContent = "Please choose a date."; calendarPopover.className = "visit-calendar-popover open"; calendarToggle.className = "visit-calendar-toggle open"; return; } if (!timeInput.value) { error.textContent = "Please enter your preferred time."; timeInput.focus(); return; } if (!form.checkValidity()) { form.reportValidity(); return; } data = { name: byId("visitName").value, email: byId("visitEmail").value, phone: byId("visitPhone").value, model: byId("visitModel").value, message: byId("visitNote").value, date: key(selectedDate), dateLabel: labelDate(selectedDate), time: prettyTime(timeInput.value) }; submit.disabled = true; submit.className = "btn visit-submit is-submitting"; submit.textContent = "Sending request..."; runner = window.google && window.google.script && window.google.script.run; function showSuccess() { submit.className = "btn visit-submit is-success"; submit.textContent = "Request received"; window.setTimeout(function () { bookingView.style.display = "none"; success.className = "visit-success visible"; successText.textContent = "We will confirm " + data.dateLabel + " at " + data.time + " shortly and prepare a more personal welcome at Alara."; }, 480); } function showFailure(failure) { submit.disabled = false; submit.className = "btn visit-submit"; submit.textContent = "Request this visit"; error.textContent = failure && failure.message ? failure.message : "Unable to submit your visit request."; } if (!runner) { showSuccess(); return; } runner.withSuccessHandler(showSuccess).withFailureHandler(showFailure).submitVisitBooking(data); });
+        form.addEventListener("submit", function (event) { var data; event.preventDefault(); if (!selectedDate || selectedLabel.textContent === "Select your preferred day") { error.textContent = "Please choose a date."; calendarPopover.className = "visit-calendar-popover open"; calendarToggle.className = "visit-calendar-toggle open"; return; } if (!timeInput.value) { error.textContent = "Please enter your preferred time."; timeInput.focus(); return; } if (!form.checkValidity()) { form.reportValidity(); return; } data = { name: byId("visitName").value, email: byId("visitEmail").value, phone: byId("visitPhone").value, model: byId("visitModel").value, message: byId("visitNote").value, date: key(selectedDate), dateLabel: labelDate(selectedDate), time: prettyTime(timeInput.value) }; submit.disabled = true; submit.className = "btn visit-submit is-submitting"; submit.textContent = "Sending request..."; function showSuccess() { submit.className = "btn visit-submit is-success"; submit.textContent = "Request received"; window.setTimeout(function () { bookingView.style.display = "none"; success.className = "visit-success visible"; successText.textContent = "We will confirm " + data.dateLabel + " at " + data.time + " shortly and prepare a more personal welcome at Alara."; }, 480); } function showFailure(failure) { submit.disabled = false; submit.className = "btn visit-submit"; submit.textContent = "Request this visit"; error.textContent = failure && failure.message ? failure.message : "Unable to submit your visit request."; } apiPost("submitVisitBooking", data, showSuccess, showFailure); });
         renderCalendar();
       }
       function setupMasterplanTour() {
