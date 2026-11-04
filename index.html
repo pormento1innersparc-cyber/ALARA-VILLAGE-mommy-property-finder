@@ -261,7 +261,7 @@
     .amenity-story-panel.reverse .life-copy { grid-column: 1; grid-row: 1; }
     .amenity-film-frame { position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; border: 1px solid rgba(184,151,90,.55); background: radial-gradient(ellipse at 50% 42%, rgba(62,91,69,.7), transparent 58%), linear-gradient(145deg,#1b3828,#091a11); box-shadow: 0 24px 60px -36px rgba(16,43,33,.68); isolation: isolate; }
     .amenity-film-frame:after { position: absolute; inset: .8rem; z-index: 1; border: 1px solid rgba(246,243,236,.34); content: ""; pointer-events: none; }
-    .amenity-story-video { position: absolute; inset: 0; display: block; width: 100%; height: 100%; background: #0b1710; object-fit: cover; opacity: 0; transition: opacity .4s ease; }
+    .amenity-story-video { position: absolute; inset: 0; display: block; width: 100%; height: 100%; background: #0b1710; object-fit: cover; opacity: 1; transition: opacity .4s ease; }
     .amenity-film-frame.is-loaded .amenity-story-video { opacity: 1; }
     .amenity-film-question { margin: .8rem 0 0; color: var(--forest); font-family: var(--serif); font-size: clamp(1.8rem,3.6vw,2.7rem); font-style: italic; line-height: 1.12; }
     .amenity-film-description { margin-top: 1rem; color: var(--muted); }
@@ -1230,37 +1230,37 @@
         <div class="life-story amenity-story-list">
           <article class="life-panel amenity-story-panel">
             <div class="amenity-film-frame" data-amenity-film>
-              <video class="amenity-story-video" id="amenityStoryVideo01" data-video-src="https://res.cloudinary.com/suzncxm2/video/upload/v1793301920/entrancegate.mp4" autoplay muted loop playsinline preload="none" aria-hidden="true"></video>
+              <video class="amenity-story-video" id="amenityStoryVideo01" data-video-src="https://res.cloudinary.com/suzncxm2/video/upload/v1793301920/entrancegate.mp4" poster="https://res.cloudinary.com/suzncxm2/video/upload/so_0,w_960,q_auto,f_jpg/v1793301920/entrancegate.jpg" autoplay muted loop playsinline preload="none" aria-hidden="true"></video>
             </div>
             <div class="life-copy"><div class="life-number">01 <span>Entrance Gate</span></div><h3 class="amenity-film-question">Looking for added privacy as you come home?</h3><p class="amenity-film-description">A defined, gated entrance creates a more controlled point of access and a reassuring welcome into the community.</p></div>
           </article>
           <article class="life-panel reverse amenity-story-panel">
             <div class="amenity-film-frame" data-amenity-film>
-              <video class="amenity-story-video" id="amenityStoryVideo02" data-video-src="https://res.cloudinary.com/suzncxm2/video/upload/v1793301921/midpark1.mp4" autoplay muted loop playsinline preload="none" aria-hidden="true"></video>
+              <video class="amenity-story-video" id="amenityStoryVideo02" data-video-src="https://res.cloudinary.com/suzncxm2/video/upload/v1793301921/midpark1.mp4" poster="https://res.cloudinary.com/suzncxm2/video/upload/so_0,w_960,q_auto,f_jpg/v1793301921/midpark1.jpg" autoplay muted loop playsinline preload="none" aria-hidden="true"></video>
             </div>
             <div class="life-copy"><div class="life-number">02 <span>Midpark 1</span></div><h3 class="amenity-film-question">Need a quiet place to pause close to home?</h3><p class="amenity-film-description">Midpark 1 offers a green pocket for a short walk, a breath of fresh air, or a slower moment in the day.</p></div>
           </article>
           <article class="life-panel amenity-story-panel">
             <div class="amenity-film-frame" data-amenity-film>
-              <video class="amenity-story-video" id="amenityStoryVideo03" data-video-src="https://res.cloudinary.com/suzncxm2/video/upload/v1793301920/forestpark.mp4" autoplay muted loop playsinline preload="none" aria-hidden="true"></video>
+              <video class="amenity-story-video" id="amenityStoryVideo03" data-video-src="https://res.cloudinary.com/suzncxm2/video/upload/v1793301920/forestpark.mp4" poster="https://res.cloudinary.com/suzncxm2/video/upload/so_0,w_960,q_auto,f_jpg/v1793301920/forestpark.jpg" autoplay muted loop playsinline preload="none" aria-hidden="true"></video>
             </div>
             <div class="life-copy"><div class="life-number">03 <span>Forest Park</span></div><h3 class="amenity-film-question">Want nature to feel closer to everyday life?</h3><p class="amenity-film-description">With a leafy park within the community, a slower walk and time outdoors can become part of your routine.</p></div>
           </article>
           <article class="life-panel reverse amenity-story-panel">
             <div class="amenity-film-frame" data-amenity-film>
-              <video class="amenity-story-video" id="amenityStoryVideo04" data-video-src="https://res.cloudinary.com/suzncxm2/video/upload/v1793301920/midpark2.mp4" autoplay muted loop playsinline preload="none" aria-hidden="true"></video>
+              <video class="amenity-story-video" id="amenityStoryVideo04" data-video-src="https://res.cloudinary.com/suzncxm2/video/upload/v1793301920/midpark2.mp4" poster="https://res.cloudinary.com/suzncxm2/video/upload/so_0,w_960,q_auto,f_jpg/v1793301920/midpark2.jpg" autoplay muted loop playsinline preload="none" aria-hidden="true"></video>
             </div>
             <div class="life-copy"><div class="life-number">04 <span>Midpark 2</span></div><h3 class="amenity-film-question">Looking for a shared place to connect outdoors?</h3><p class="amenity-film-description">This shared green space gives neighbors and families another place to walk, gather, and enjoy simple moments together.</p></div>
           </article>
           <article class="life-panel amenity-story-panel">
             <div class="amenity-film-frame" data-amenity-film>
-              <video class="amenity-story-video" id="amenityStoryVideo05" data-video-src="https://res.cloudinary.com/suzncxm2/video/upload/v1793301920/tricourt.mp4" autoplay muted loop playsinline preload="none" aria-hidden="true"></video>
+              <video class="amenity-story-video" id="amenityStoryVideo05" data-video-src="https://res.cloudinary.com/suzncxm2/video/upload/v1793301920/tricourt.mp4" poster="https://res.cloudinary.com/suzncxm2/video/upload/so_0,w_960,q_auto,f_jpg/v1793301920/tricourt.jpg" autoplay muted loop playsinline preload="none" aria-hidden="true"></video>
             </div>
             <div class="life-copy"><div class="life-number">05 <span>Play Area Tri-Court</span></div><h3 class="amenity-film-question">Want children to have space to move and play?</h3><p class="amenity-film-description">The play area and tri-court create a nearby setting for outdoor games, movement, and family activity.</p></div>
           </article>
           <article class="life-panel reverse amenity-story-panel">
             <div class="amenity-film-frame" data-amenity-film>
-              <video class="amenity-story-video" id="amenityStoryVideo06" data-video-src="https://res.cloudinary.com/suzncxm2/video/upload/v1793301919/clubhousepool.mp4" autoplay muted loop playsinline preload="none" aria-hidden="true"></video>
+              <video class="amenity-story-video" id="amenityStoryVideo06" data-video-src="https://res.cloudinary.com/suzncxm2/video/upload/v1793301919/clubhousepool.mp4" poster="https://res.cloudinary.com/suzncxm2/video/upload/so_0,w_960,q_auto,f_jpg/v1793301919/clubhousepool.jpg" autoplay muted loop playsinline preload="none" aria-hidden="true"></video>
             </div>
             <div class="life-copy"><div class="life-number">06 <span>Clubhouse Pool</span></div><h3 class="amenity-film-question">Would a place to unwind nearby make life easier?</h3><p class="amenity-film-description">The clubhouse pool offers a community setting to cool off, relax, and enjoy time together.</p></div>
           </article>
@@ -1973,7 +1973,7 @@
       function pauseFrame(frame) {
         var video = frame.querySelector("video");
         if (video && !video.paused) video.pause();
-        frame.classList.remove("is-playing");
+        frame.classList.remove("is-playing", "is-in-view");
         if (activeVideo === video) activeVideo = null;
       }
       function playFrame(frame) {
@@ -1984,13 +1984,16 @@
         if (!video.getAttribute("src") && source) { video.setAttribute("src", source); video.load(); }
         video.muted = true;
         video.defaultMuted = true;
+        video.setAttribute("muted", "");
         video.loop = true;
+        video.playsInline = true;
+        video.setAttribute("playsinline", "");
+        frame.classList.add("is-in-view");
         frame.classList.remove("is-error");
         frame.classList.add("is-loaded");
         request = video.play();
-        if (request && typeof request.catch === "function") request.catch(function () {
-          frame.classList.remove("is-playing");
-          frame.classList.add("is-error");
+        if (request && typeof request.catch === "function") request.catch(function (error) {
+          if (error && error.name !== "AbortError") frame.classList.add("is-error");
         });
       }
       for (i = 0; i < frames.length; i += 1) (function (frame) {
@@ -2002,6 +2005,11 @@
           frame.classList.add("is-playing");
           activeVideo = video;
         });
+        video.addEventListener("canplay", function () {
+          if (!frame.classList.contains("is-in-view") || !video.paused) return;
+          var retry = video.play();
+          if (retry && typeof retry.catch === "function") retry.catch(function (error) { if (error && error.name !== "AbortError") frame.classList.add("is-error"); });
+        });
         video.addEventListener("pause", function () { frame.classList.remove("is-playing"); });
         video.addEventListener("error", function () {
           frame.classList.remove("is-loaded", "is-playing");
@@ -2011,32 +2019,34 @@
           if (activeVideo === video) activeVideo = null;
         });
       }(frames[i]));
-      var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      if (!reduceMotion && "IntersectionObserver" in window) {
-        var observer = new IntersectionObserver(function (entries) {
-          for (var k = 0; k < entries.length; k += 1) {
-            var entry = entries[k];
-            if (entry.isIntersecting && entry.intersectionRatio >= 0.5) playFrame(entry.target);
-            else if (!entry.isIntersecting || entry.intersectionRatio < 0.15) pauseFrame(entry.target);
-          }
-        }, { root: null, rootMargin: "0px", threshold: [0, 0.15, 0.5] });
-        for (i = 0; i < frames.length; i += 1) observer.observe(frames[i]);
-      } else if (!reduceMotion) {
-        function updateVisibleFilm() {
-          var best = null, bestRatio = 0.35;
-          for (var j = 0; j < frames.length; j += 1) {
-            var rect = frames[j].getBoundingClientRect(), height = Math.max(0, Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0)), ratio = rect.height ? height / rect.height : 0;
-            if (ratio > bestRatio) { bestRatio = ratio; best = frames[j]; }
-          }
-          if (best) {
-            var bestVideo = best.querySelector("video");
-            if (bestVideo && (activeVideo !== bestVideo || bestVideo.paused)) playFrame(best);
-          } else for (var k = 0; k < frames.length; k += 1) pauseFrame(frames[k]);
+      var centerUpdatePending = false;
+      function updateCenterVideo() {
+        var midpoint = window.innerHeight / 2, limit = window.innerHeight * 0.32;
+        var best = null, bestDistance = Infinity, j, rect, visibleHeight, visibleRatio, frameCenter, distance;
+        centerUpdatePending = false;
+        for (j = 0; j < frames.length; j += 1) {
+          rect = frames[j].getBoundingClientRect();
+          visibleHeight = Math.max(0, Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0));
+          visibleRatio = rect.height ? visibleHeight / rect.height : 0;
+          frameCenter = rect.top + rect.height / 2;
+          distance = Math.abs(frameCenter - midpoint);
+          if (visibleRatio >= 0.25 && distance <= limit && distance < bestDistance) { best = frames[j]; bestDistance = distance; }
         }
-        window.addEventListener("scroll", updateVisibleFilm, { passive: true });
-        window.addEventListener("resize", updateVisibleFilm, false);
-        updateVisibleFilm();
+        if (best) playFrame(best);
+        else for (j = 0; j < frames.length; j += 1) pauseFrame(frames[j]);
       }
+      function scheduleCenterUpdate() {
+        if (centerUpdatePending) return;
+        centerUpdatePending = true;
+        window.requestAnimationFrame(updateCenterVideo);
+      }
+      if ("IntersectionObserver" in window) {
+        var observer = new IntersectionObserver(scheduleCenterUpdate, { root: null, rootMargin: "0px", threshold: [0, 0.25, 0.5] });
+        for (i = 0; i < frames.length; i += 1) observer.observe(frames[i]);
+      }
+      window.addEventListener("scroll", scheduleCenterUpdate, { passive: true });
+      window.addEventListener("resize", scheduleCenterUpdate, false);
+      scheduleCenterUpdate();
       (function setupSampleComputation() {
         var section = document.getElementById("sample-computation"), selector, buttons, results, status, current = "veta", timer, frames = Object.create(null), reduceMotion, values, chartMax;
         if (!section) return;
