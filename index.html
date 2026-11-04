@@ -430,7 +430,7 @@
     body.visit-modal-open { overflow: hidden; }
     .visit-modal { position: fixed; z-index: 40; inset: 0; display: flex; align-items: center; justify-content: center; padding: 1.25rem; background: rgba(8,28,17,.72); opacity: 0; pointer-events: none; transition: opacity .35s ease; }
     .visit-modal.open { opacity: 1; pointer-events: auto; }
-    .visit-panel { position: relative; width: min(920px, 100%); max-height: min(850px, 94vh); overflow: auto; padding: clamp(1.5rem, 4vw, 3.2rem); border: 1px solid rgba(184,151,90,.7); background: var(--ivory); box-shadow: 0 30px 100px rgba(0,0,0,.35); transform: translateY(18px) scale(.98); transition: transform .45s var(--ease); }
+    .visit-panel { position: relative; width: min(1120px, 100%); max-height: min(850px, 94vh); overflow: auto; padding: clamp(1.5rem, 4vw, 3.2rem); border: 1px solid rgba(184,151,90,.7); background: var(--ivory); box-shadow: 0 30px 100px rgba(0,0,0,.35); transform: translateY(18px) scale(.98); transition: transform .45s var(--ease); }
     .visit-modal.open .visit-panel { transform: none; }
     .visit-close { position: absolute; top: 1rem; right: 1rem; width: 38px; height: 38px; border: 1px solid rgba(28,61,41,.25); border-radius: 50%; background: transparent; color: var(--forest); font-size: 1.25rem; line-height: 1; }
     .visit-close:hover { border-color: var(--brass); background: var(--brass); }
@@ -462,8 +462,33 @@
     .visit-form input, .visit-form select, .visit-form textarea { width: 100%; padding: .8rem .85rem; border: 1px solid rgba(28,61,41,.2); border-radius: 0; outline: 0; background: rgba(255,255,255,.42); color: var(--forest); font: inherit; font-size: .76rem; }
     .visit-form textarea { min-height: 68px; resize: vertical; }
     .visit-form input:focus, .visit-form select:focus, .visit-form textarea:focus { border-color: var(--brass); box-shadow: 0 0 0 3px rgba(184,151,90,.13); }
-    .visit-booking-form { display: block; margin-top: 2rem; }
-    .visit-booking-form .visit-layout { margin-top: 0; }
+    .visit-booking-form { display: grid; grid-template-columns: minmax(0,.78fr) minmax(0,1.22fr); gap: .7rem; margin-top: 2rem; }
+    .visit-booking-form .visit-layout { grid-column: 1 / -1; grid-template-columns: minmax(0,.82fr) minmax(0,1.18fr); align-items: start; margin-top: 0; }
+    .visit-booking-form .visit-model-preview { grid-column: 1; grid-row: 1; }
+    .visit-booking-form .visit-model-details { grid-column: 1; grid-row: 2; }
+    .visit-booking-form .visit-details, .visit-booking-form .visit-time-row, .visit-booking-form .visit-calendar { grid-column: 2; }
+    .visit-booking-form > .visit-error, .visit-booking-form > .visit-submit { grid-column: 2; }
+    .visit-model-preview { position: relative; align-self: start; min-height: 300px; height: min(40vh, 380px); overflow: hidden; margin: 0; border: 1px solid rgba(184,151,90,.58); background: var(--forest); box-shadow: 0 18px 42px rgba(28,61,41,.18); }
+    .visit-model-preview:before { position: absolute; z-index: 1; inset: 0; background: linear-gradient(180deg, rgba(8,28,17,.08) 25%, rgba(8,28,17,.22) 50%, rgba(8,28,17,.91) 100%); content: ""; pointer-events: none; }
+    .visit-model-preview-image { position: relative; z-index: 0; display: none; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+    .visit-model-preview-image.is-active { display: block; animation: visitModelPreviewFade .45s ease both; }
+    @keyframes visitModelPreviewFade { from { opacity: 0; transform: scale(1.015); } to { opacity: 1; transform: scale(1); } }
+    .visit-model-preview:hover .visit-model-preview-image { transform: scale(1.025); }
+    .visit-model-preview-copy { position: absolute; z-index: 2; right: 1.2rem; bottom: 5.4rem; left: 1.2rem; color: var(--ivory); }
+    .visit-model-preview-kicker { margin: 0; color: var(--brass); font-size: .6rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; }
+    .visit-model-preview-name { margin: .45rem 0 0; color: var(--ivory); font-family: var(--serif); font-size: clamp(2rem,3vw,3rem); font-weight: 400; line-height: 1; }
+    .visit-model-preview-tagline { margin: .38rem 0 0; color: var(--brass); font-family: var(--serif); font-size: clamp(1rem,1.5vw,1.3rem); font-style: italic; }
+    .visit-model-preview-specs { position: absolute; z-index: 2; right: 1.2rem; bottom: 1.15rem; left: 1.2rem; margin: 0; padding-top: .75rem; border-top: 1px solid rgba(246,243,236,.38); color: rgba(246,243,236,.88); font-size: .58rem; font-weight: 600; letter-spacing: .1em; line-height: 1.5; text-transform: uppercase; }
+    .visit-model-details { min-width: 0; margin: 0; padding: 1rem 1.05rem; border: 1px solid rgba(184,151,90,.48); background: rgba(255,255,255,.52); }
+    .visit-model-price-row { display: flex; align-items: flex-end; justify-content: space-between; gap: .7rem; padding-bottom: .75rem; border-bottom: 1px solid rgba(28,61,41,.14); }
+    .visit-model-price-label, .visit-model-feature-label { display: block; margin: 0; color: #788178; font-size: .52rem; font-weight: 600; letter-spacing: .15em; text-transform: uppercase; }
+    .visit-model-price-value { display: block; margin-top: .22rem; color: var(--forest); font-size: clamp(1.35rem,2vw,1.8rem); font-weight: 600; letter-spacing: -.035em; line-height: 1.1; font-variant-numeric: tabular-nums; }
+    .visit-model-price-note { flex: 0 0 auto; margin: 0 0 .1rem; color: #788178; font-size: .56rem; text-align: right; }
+    .visit-model-description { margin: .75rem 0 0; color: rgba(28,61,41,.82); font-family: var(--serif); font-size: .88rem; font-style: italic; line-height: 1.45; }
+    .visit-model-feature-label { margin-top: .75rem; color: var(--forest); }
+    .visit-model-features { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: .42rem .7rem; margin: .55rem 0 0; padding: 0; list-style: none; }
+    .visit-model-features li { position: relative; padding-left: .72rem; color: rgba(28,61,41,.78); font-size: .59rem; line-height: 1.4; }
+    .visit-model-features li:before { position: absolute; top: .38em; left: 0; width: .28rem; height: .28rem; border-radius: 50%; background: var(--brass); content: ""; }
     .visit-details { padding-bottom: 1.6rem; border-bottom: 1px solid rgba(184,151,90,.55); }
     .visit-details-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .7rem; margin-top: .85rem; }
     .visit-details-grid input, .visit-details-grid select, .visit-details-grid textarea { background: rgba(255,255,255,.58); }
@@ -668,6 +693,12 @@
       .model-specs { grid-template-columns: repeat(2, 1fr); }
       .visit-modal { align-items: flex-end; padding: 0; }
       .visit-panel { max-height: 96svh; padding: 1.45rem 1.1rem calc(1.5rem + env(safe-area-inset-bottom, 0px)); border-radius: 24px 24px 0 0; }
+      .visit-booking-form { grid-template-columns: minmax(0,1fr); }
+      .visit-booking-form .visit-layout { grid-template-columns: minmax(0,1fr); }
+      .visit-booking-form .visit-model-preview { position: relative; grid-column: 1; grid-row: auto; min-height: 190px; height: clamp(190px,54vw,240px); }
+      .visit-booking-form .visit-model-details { grid-column: 1; grid-row: auto; }
+      .visit-booking-form .visit-details, .visit-booking-form .visit-time-row, .visit-booking-form .visit-calendar, .visit-booking-form > .visit-error, .visit-booking-form > .visit-submit { grid-column: 1; }
+      .visit-model-features { grid-template-columns: 1fr; }
       .visit-header { padding: 0 1.4rem 0 .15rem; }
       .visit-header h2 { font-size: clamp(2rem, 9vw, 2.65rem); }
       .visit-header p { max-width: 20rem; line-height: 1.55; }
@@ -898,6 +929,78 @@
       .agent-about-portrait-frame { aspect-ratio: .88; }
     }
 
+    /* Sample computation section */
+    .calc-section { position: relative; padding: clamp(4.2rem,7.5vw,7rem) 0; overflow: hidden; background: radial-gradient(ellipse at 95% 0%,rgba(183,212,168,.13),transparent 29%),var(--paper); }
+    .calc-section:before,.calc-section:after { position: absolute; top: 3.5rem; right: -6rem; width: clamp(180px,26vw,340px); aspect-ratio: 1; border: 1px solid rgba(184,151,90,.12); border-radius: 50%; content: ""; pointer-events: none; }
+    .calc-section:after { top: 5rem; right: -4.5rem; width: clamp(145px,22vw,285px); border-color: rgba(183,212,168,.2); }
+    .calc-wrap { position: relative; z-index: 1; }
+    .calc-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 1.5rem; padding-bottom: 1.25rem; border-bottom: 1px solid rgba(28,61,41,.16); }
+    .calc-heading .eyebrow { margin: 0 0 .85rem; }
+    .calc-heading h2 { max-width: 760px; color: var(--forest); font-size: clamp(2.35rem,5vw,4rem); letter-spacing: -.035em; line-height: 1.04; }
+    .calc-heading h2 em { color: var(--green); font-weight: 400; }
+    .calc-indicative { flex: 0 0 auto; margin-bottom: .15rem; padding: .47rem .7rem; border: 1px solid rgba(184,151,90,.62); color: #806530; font-size: .58rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; }
+    .calc-selectors { margin-top: 1.75rem; }
+    .calc-selector-label { margin: 0 0 .6rem; color: var(--muted); font-size: .6rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; }
+    .calc-selector-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: .65rem; }
+    .calc-choice { position: relative; display: flex; min-width: 0; min-height: 82px; flex-direction: column; justify-content: center; padding: .85rem 1rem; overflow: hidden; border: 1px solid rgba(28,61,41,.18); background: rgba(255,255,255,.62); color: var(--forest); cursor: pointer; text-align: left; transition: transform .32s var(--ease),border-color .3s ease,background .3s ease,box-shadow .3s ease,opacity .7s var(--ease); -webkit-tap-highlight-color: transparent; }
+    .calc-choice:after { position: absolute; right: 0; bottom: 0; left: 0; height: 2px; background: var(--brass); content: ""; transform: scaleX(0); transform-origin: left; transition: transform .42s var(--ease); }
+    .calc-choice:hover { transform: translateY(-2px); border-color: rgba(184,151,90,.65); background: #fffefa; }
+    .calc-choice:active { transform: scale(.99); }
+    .calc-choice[aria-pressed="true"] { border-color: var(--brass); background: linear-gradient(135deg,#fffefa,#f4f4ed); box-shadow: 0 12px 28px -24px rgba(28,61,41,.7),inset 0 0 0 1px rgba(184,151,90,.14); }
+    .calc-choice[aria-pressed="true"]:after { transform: scaleX(1); }
+    .calc-choice-name { font-family: var(--serif); font-size: 1.32rem; line-height: 1.1; }
+    .calc-choice-areas { margin-top: .35rem; color: #718075; font-size: .62rem; letter-spacing: .025em; }
+    .calc-selected { position: absolute; top: .55rem; right: .65rem; color: var(--brass); font-size: .48rem; font-weight: 600; letter-spacing: .12em; opacity: 0; text-transform: uppercase; transition: opacity .25s ease; }
+    .calc-choice[aria-pressed="true"] .calc-selected { opacity: 1; }
+    .calc-results { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 1rem; margin-top: 1rem; transition: opacity .2s ease,transform .3s var(--ease); }
+    .calc-results.is-updating { opacity: .52; transform: translateY(4px); }
+    .calc-card { position: relative; min-width: 0; padding: clamp(1.4rem,3.1vw,2.4rem); border: 1px solid rgba(28,61,41,.17); background: #fffefa; box-shadow: 0 24px 62px -52px rgba(17,45,28,.5); }
+    .calc-price-card:after { position: absolute; top: .7rem; right: .7rem; width: 1.6rem; height: 1.6rem; border-top: 1px solid rgba(184,151,90,.55); border-right: 1px solid rgba(184,151,90,.55); content: ""; pointer-events: none; }
+    .calc-kicker { display: flex; align-items: center; gap: .65rem; margin: 0 0 .65rem; color: var(--brass); font-size: .55rem; font-weight: 600; letter-spacing: .19em; text-transform: uppercase; }
+    .calc-kicker:after { width: 1.8rem; height: 1px; background: currentColor; content: ""; }
+    .calc-model-name { margin: 0 0 1rem; color: var(--forest); font-family: var(--serif); font-size: clamp(1.8rem,3vw,2.45rem); font-weight: 400; line-height: 1.08; }
+    .calc-areas { display: grid; grid-template-columns: 1fr 1fr; gap: .55rem; margin-bottom: 1.05rem; }
+    .calc-area { position: relative; padding: .62rem .75rem; overflow: hidden; border-left: 1px solid var(--brass); background: linear-gradient(135deg,#f3f2ea,#faf9f4); }
+    .calc-area-label,.calc-data-label { display: block; color: #788178; font-size: .5rem; font-weight: 600; letter-spacing: .15em; text-transform: uppercase; }
+    .calc-area-value { display: block; margin-top: .12rem; color: var(--forest); font-family: var(--serif); font-size: 1.28rem; line-height: 1.1; }
+    .calc-tcp { margin-bottom: 1rem; padding-bottom: .9rem; border-bottom: 1px solid rgba(28,61,41,.16); }
+    .calc-tcp-value { display: block; margin-top: .12rem; color: var(--forest); font-size: clamp(1.8rem,3vw,2.35rem); font-weight: 500; letter-spacing: -.04em; line-height: 1.12; font-variant-numeric: tabular-nums; }
+    .calc-dp-title { margin: 0 0 .15rem; color: var(--forest); font-family: var(--serif); font-size: 1.25rem; font-weight: 400; }
+    .calc-value-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .56rem 0; border-bottom: 1px solid rgba(28,61,41,.1); color: #68756b; font-size: .75rem; }
+    .calc-value-row strong { color: var(--ink); font-size: .78rem; font-weight: 600; text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+    .calc-monthly { display: flex; align-items: center; justify-content: space-between; gap: .75rem; margin-top: .8rem; padding: .8rem .95rem; border-left: 2px solid var(--brass); background: var(--forest); color: var(--ivory); box-shadow: 0 10px 24px -20px rgba(28,61,41,.65); }
+    .calc-monthly span { font-size: .7rem; }
+    .calc-monthly strong { color: var(--ivory); font-size: clamp(1.25rem,2vw,1.55rem); font-weight: 500; white-space: nowrap; font-variant-numeric: tabular-nums; }
+    .calc-bank-card { overflow: hidden; border-color: var(--forest); background: linear-gradient(145deg,#21452f,var(--forest) 62%,#142d1e); color: var(--ivory); box-shadow: 0 25px 68px -48px rgba(14,39,23,.72),inset 0 0 0 1px rgba(183,212,168,.07); }
+    .calc-bank-card:before { position: absolute; z-index: 0; inset: .65rem; border: 1px solid rgba(246,243,236,.12); content: ""; pointer-events: none; }
+    .calc-bank-card:after { position: absolute; right: -5.8rem; bottom: -8.5rem; width: 20rem; height: 20rem; border: 1px solid rgba(184,151,90,.22); border-radius: 50%; box-shadow: 0 0 0 25px rgba(184,151,90,.04),0 0 0 55px rgba(184,151,90,.035); content: ""; pointer-events: none; }
+    .calc-bank-card > * { position: relative; z-index: 1; }
+    .calc-bank-card .calc-kicker { color: var(--sage); }
+    .calc-bank-title { max-width: 32rem; margin: 0; color: var(--ivory); font-family: var(--serif); font-size: clamp(1.45rem,2.6vw,1.95rem); font-weight: 400; line-height: 1.2; }
+    .calc-loan { margin: 1rem 0 1.05rem; padding-bottom: .9rem; border-bottom: 1px solid rgba(246,243,236,.22); }
+    .calc-bank-card .calc-data-label { color: rgba(246,243,236,.66); }
+    .calc-loan-value { display: block; margin-top: .15rem; color: var(--ivory); font-size: clamp(1.8rem,3vw,2.35rem); font-weight: 500; letter-spacing: -.04em; line-height: 1.12; font-variant-numeric: tabular-nums; }
+    .calc-chart { display: grid; gap: .8rem; }
+    .calc-chart-row { display: grid; grid-template-columns: 2.45rem minmax(0,1fr) 5.7rem; align-items: center; gap: .6rem; }
+    .calc-chart-term { color: var(--sage); font-size: .55rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; white-space: nowrap; }
+    .calc-chart-track { display: block; height: 1.35rem; overflow: hidden; border: 1px solid rgba(246,243,236,.2); background: rgba(255,255,255,.045); }
+    .calc-chart-bar { display: block; width: 0; height: 100%; background: linear-gradient(90deg,rgba(183,212,168,.76),rgba(184,151,90,.9)); box-shadow: 0 0 18px rgba(183,212,168,.15); transition: width .78s var(--ease); }
+    .calc-chart-value { display: block; color: var(--ivory); font-size: clamp(.69rem,1.2vw,.9rem); font-weight: 500; text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+    .calc-note { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-top: 1rem; padding-top: .8rem; border-top: 1px solid rgba(28,61,41,.16); color: #6d786f; font-size: .63rem; line-height: 1.55; }
+    .calc-note p { margin: 0; }
+    .calc-announcement { flex: 0 0 auto; color: var(--forest); font-style: italic; text-align: right; white-space: nowrap; }
+    .calc-label-arrive { animation: calcLabelArrive .42s var(--ease) both; }
+    .calc-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+    .calc-section.has-reveal .calc-heading,.calc-section.has-reveal .calc-selectors,.calc-section.has-reveal .calc-results,.calc-section.has-reveal .calc-note { opacity: 0; transform: translateY(18px); transition: opacity .85s var(--ease),transform .85s var(--ease); }
+    .calc-section.is-visible .calc-heading,.calc-section.is-visible .calc-selectors,.calc-section.is-visible .calc-results,.calc-section.is-visible .calc-note { opacity: 1; transform: none; }
+    .calc-section.is-visible .calc-selectors { transition-delay: .1s; }
+    .calc-section.is-visible .calc-results { transition-delay: .18s; }
+    .calc-section.is-visible .calc-note { transition-delay: .25s; }
+    @keyframes calcLabelArrive { from { opacity: .2; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+    @media (max-width: 820px) { .calc-results { grid-template-columns: 1fr; } .calc-heading { align-items: flex-start; flex-direction: column; gap: .85rem; } .calc-indicative { margin: 0; } }
+    @media (max-width: 560px) { .calc-section { padding: 4.2rem 0; } .calc-selector-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: .5rem; } .calc-choice { min-height: 74px; padding: .7rem .75rem; } .calc-choice-name { font-size: 1.2rem; } .calc-choice-areas { font-size: .56rem; } .calc-selected { top: .43rem; right: .5rem; font-size: .43rem; } .calc-card { padding: 1.25rem 1rem; } .calc-heading h2 { font-size: clamp(2.15rem,10vw,3rem); } .calc-chart { gap: .72rem; } .calc-chart-row { grid-template-columns: 2.2rem minmax(0,1fr) 5.1rem; gap: .42rem; } .calc-chart-track { height: 1.18rem; } .calc-chart-value { font-size: .67rem; } .calc-monthly { align-items: flex-start; flex-direction: column; gap: .25rem; } .calc-note { flex-direction: column; gap: .4rem; font-size: .62rem; } .calc-announcement { text-align: left; } }
+    @media (prefers-reduced-motion: reduce) { .calc-section *, .calc-section *:before, .calc-section *:after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } }
+
   </style>
 </head>
 <body class="is-loading">
@@ -1034,6 +1137,52 @@
           <div class="model-visual" id="modelVisual"><img id="modelImage" alt="Selected Alara Village home model"><div class="visual-controls" role="group" aria-label="Model view"><button class="visual-control active" id="houseView" type="button" aria-pressed="true">House</button><button class="visual-control" id="planView" type="button" aria-pressed="false">Floor plan</button></div><div class="model-visual-caption"><div><span id="modelVisualKicker">The Alara Collection</span><strong id="modelVisualName">Veta</strong></div><div class="model-visual-index" id="modelVisualIndex">01</div></div></div>
           <div class="model-info" id="modelInfo"></div>
         </div>
+      </div>
+    </section>
+
+    <section class="calc-section" id="sample-computation" aria-labelledby="calcTitle">
+      <div class="wrap calc-wrap">
+        <div class="calc-heading">
+          <div><div class="eyebrow">Alara Village · Sample Price List</div><h2 id="calcTitle">Sample computation <em>per model</em></h2></div>
+          <span class="calc-indicative">Indicative Price</span>
+        </div>
+        <div class="calc-selectors">
+          <p class="calc-selector-label">Select Model</p>
+          <div class="calc-selector-grid" id="calcModelSelector" role="group" aria-label="Select a house model">
+            <button class="calc-choice" type="button" data-calc-model="veta" aria-pressed="true"><span class="calc-selected">Selected</span><strong class="calc-choice-name">Veta</strong><small class="calc-choice-areas">85 floor · 121 lot</small></button>
+            <button class="calc-choice" type="button" data-calc-model="zila" aria-pressed="false"><span class="calc-selected">Selected</span><strong class="calc-choice-name">Zila</strong><small class="calc-choice-areas">96 floor · 121 lot</small></button>
+            <button class="calc-choice" type="button" data-calc-model="raya" aria-pressed="false"><span class="calc-selected">Selected</span><strong class="calc-choice-name">Raya</strong><small class="calc-choice-areas">110 floor · 121 lot</small></button>
+            <button class="calc-choice" type="button" data-calc-model="yana" aria-pressed="false"><span class="calc-selected">Selected</span><strong class="calc-choice-name">Yana</strong><small class="calc-choice-areas">130 floor · 160 lot</small></button>
+          </div>
+        </div>
+        <p class="calc-sr-only" id="calcModelStatus" role="status" aria-live="polite" aria-atomic="true"></p>
+        <div class="calc-results" id="calcResults">
+          <article class="calc-card calc-price-card">
+            <p class="calc-kicker">Indicative Price</p>
+            <h3 class="calc-model-name" id="calcModelName">Veta</h3>
+            <div class="calc-areas">
+              <div class="calc-area"><span class="calc-area-label">Floor Area</span><strong class="calc-area-value" id="calcFloorArea">85</strong></div>
+              <div class="calc-area"><span class="calc-area-label">Lot Area</span><strong class="calc-area-value" id="calcLotArea">121</strong></div>
+            </div>
+            <div class="calc-tcp"><span class="calc-data-label">TCP</span><strong class="calc-tcp-value" id="calcTcp">₱8,915,000</strong></div>
+            <h4 class="calc-dp-title">Down Payment</h4>
+            <div class="calc-value-row"><span>DP (20%)</span><strong id="calcDownPayment">₱1,783,000</strong></div>
+            <div class="calc-value-row"><span>RF</span><strong id="calcReservationFee">₱80,000</strong></div>
+            <div class="calc-monthly"><span>DP Monthly (24mos)</span><strong id="calcDpMonthly">₱70,958</strong></div>
+          </article>
+          <article class="calc-card calc-bank-card">
+            <p class="calc-kicker">Bank Financing</p>
+            <h3 class="calc-bank-title">80% Loan · 7% Prequalifying Rate</h3>
+            <div class="calc-loan"><span class="calc-data-label">Loan</span><strong class="calc-loan-value" id="calcLoan">₱7,132,000</strong></div>
+            <div class="calc-chart" id="calcChart" role="group" aria-label="Bank financing amounts by loan term">
+              <div class="calc-chart-row"><span class="calc-chart-term">5 Yrs</span><span class="calc-chart-track" aria-hidden="true"><span class="calc-chart-bar" data-calc-bar="0"></span></span><strong class="calc-chart-value" id="calcTerm5">₱141,222</strong></div>
+              <div class="calc-chart-row"><span class="calc-chart-term">10 Yrs</span><span class="calc-chart-track" aria-hidden="true"><span class="calc-chart-bar" data-calc-bar="1"></span></span><strong class="calc-chart-value" id="calcTerm10">₱82,809</strong></div>
+              <div class="calc-chart-row"><span class="calc-chart-term">15 Yrs</span><span class="calc-chart-track" aria-hidden="true"><span class="calc-chart-bar" data-calc-bar="2"></span></span><strong class="calc-chart-value" id="calcTerm15">₱64,104</strong></div>
+              <div class="calc-chart-row"><span class="calc-chart-term">20 Yrs</span><span class="calc-chart-track" aria-hidden="true"><span class="calc-chart-bar" data-calc-bar="3"></span></span><strong class="calc-chart-value" id="calcTerm20">₱55,294</strong></div>
+            </div>
+          </article>
+        </div>
+        <div class="calc-note"><p><strong>Note:</strong> For Bank Financing – Prevailing bank rates at time of loan application will be availed</p><p class="calc-announcement">“For announcement purposes only”</p></div>
       </div>
     </section>
 
@@ -1195,7 +1344,27 @@
         <div id="visitBookingView">
           <form class="visit-form visit-booking-form" id="visitForm">
             <div class="visit-layout">
+              <figure class="visit-model-preview" id="visitModelPreview" aria-label="Selected Alara Village house model">
+                <img class="visit-model-preview-image is-active" data-model-image="veta" alt="Veta 85 sqm Alara Village home model" loading="eager" decoding="async">
+                <img class="visit-model-preview-image" data-model-image="zila" alt="Zila 96 sqm Alara Village home model" loading="lazy" decoding="async" aria-hidden="true">
+                <img class="visit-model-preview-image" data-model-image="raya" alt="Raya 110 sqm Alara Village home model" loading="lazy" decoding="async" aria-hidden="true">
+                <img class="visit-model-preview-image" data-model-image="yana" alt="Yana 130 sqm Alara Village home model" loading="lazy" decoding="async" aria-hidden="true">
+                <figcaption class="visit-model-preview-copy" aria-live="polite">
+                  <p class="visit-model-preview-kicker">Your future home</p>
+                  <h3 class="visit-model-preview-name" id="visitModelPreviewName">Veta 85 sqm</h3>
+                  <p class="visit-model-preview-tagline" id="visitModelPreviewTagline">Where Bonds Blossom</p>
+                </figcaption>
+                <p class="visit-model-preview-specs" id="visitModelPreviewSpecs">Floor area: 85 sqm · Lot area: 121 sqm</p>
+              </figure>
+              <article class="visit-model-details" aria-label="Selected house model price and details">
+                <div class="visit-model-price-row"><div><span class="visit-model-price-label">Indicative price · TCP</span><strong class="visit-model-price-value" id="visitModelPrice">₱8,915,000</strong></div><p class="visit-model-price-note">Sample estimate only<br>Confirm current pricing</p></div>
+                <p class="visit-model-description" id="visitModelDescription">A warm sanctuary where family connections grow stronger.</p>
+                <p class="visit-model-feature-label">Home details</p>
+                <ul class="visit-model-features" id="visitModelFeatures"><li>Living Area, Dining Area, Kitchen</li><li>1 Bedroom</li><li>Main Bedroom with Main Toilet &amp; Bath</li><li>Lanai</li><li>1 Powder Room, 2 Toilet &amp; Bath</li><li>2 Car Park</li></ul>
+              </article>
               <div class="visit-details"><div class="eyebrow">Tell us a little about you</div><div class="visit-details-grid"><input id="visitName" type="text" placeholder="Full name" autocomplete="name" required><input id="visitPhone" type="tel" placeholder="Mobile number" autocomplete="tel"><div class="visit-model-field"><span class="visit-model-label">Model you like</span><div class="visit-model-choices" role="radiogroup" aria-label="Model of interest"><button class="visit-model-choice selected" type="button" data-model="Veta · 85 sqm" role="radio" aria-checked="true"><strong>VETA</strong><small>85 sqm</small></button><button class="visit-model-choice" type="button" data-model="Zila · 96 sqm" role="radio" aria-checked="false"><strong>ZILA</strong><small>96 sqm</small></button><button class="visit-model-choice" type="button" data-model="Raya · 110 sqm" role="radio" aria-checked="false"><strong>RAYA</strong><small>110 sqm</small></button><button class="visit-model-choice" type="button" data-model="Yana · 130 sqm" role="radio" aria-checked="false"><strong>YANA</strong><small>130 sqm</small></button></div><select class="visit-model-hidden" id="visitModel" aria-hidden="true"><option value="Veta · 85 sqm">Veta · 85 sqm</option><option value="Zila · 96 sqm">Zila · 96 sqm</option><option value="Raya · 110 sqm">Raya · 110 sqm</option><option value="Yana · 130 sqm">Yana · 130 sqm</option><option value="Not sure yet">Not sure yet</option></select></div><input id="visitEmail" type="email" placeholder="Email address" autocomplete="email" required><textarea id="visitNote" placeholder="Anything you would like us to prepare?" rows="2"></textarea></div></div>
+              <div class="visit-time-row"><div class="visit-side"><div class="eyebrow">Your preferred schedule</div><h3>Select a time</h3><div class="visit-time-input"><input id="visitTime" type="time" min="09:00" max="18:00" step="300" aria-label="Preferred visit time" required></div><p class="visit-time-note">Choose any time between 9:00 AM and 6:00 PM, in five-minute increments. We will confirm availability with you.</p></div></div>
+              <div class="visit-calendar" aria-label="Choose a visit date"><button class="visit-calendar-toggle" id="visitCalendarToggle" type="button" aria-expanded="false"><span>Preferred visit date</span><strong id="visitSelectedDate">Select a date</strong><span aria-hidden="true">⌄</span></button><div class="visit-calendar-popover" id="visitCalendarPopover"><div class="visit-calendar-head"><div class="visit-month" id="visitMonthLabel"></div><div class="visit-month-actions"><button id="visitPrevMonth" type="button" aria-label="Previous month">←</button><button id="visitNextMonth" type="button" aria-label="Next month">→</button></div></div><div class="visit-weekdays" aria-hidden="true"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div><div class="visit-days" id="visitDays" role="grid" aria-label="Available visit dates"></div><p class="visit-availability">Viewings are available Tuesday to Sunday. Mondays are reserved for the Alara team.</p></div></div>
               <div class="visit-time-row"><div class="visit-side"><div class="eyebrow">Your preferred schedule</div><h3>Select a time</h3><div class="visit-time-input"><input id="visitTime" type="time" min="09:00" max="18:00" step="300" aria-label="Preferred visit time" required></div><p class="visit-time-note">Choose any time between 9:00 AM and 6:00 PM, in five-minute increments. We will confirm availability with you.</p></div></div>
               <div class="visit-calendar" aria-label="Choose a visit date"><button class="visit-calendar-toggle" id="visitCalendarToggle" type="button" aria-expanded="false"><span>Preferred visit date</span><strong id="visitSelectedDate">Select a date</strong><span aria-hidden="true">⌄</span></button><div class="visit-calendar-popover" id="visitCalendarPopover"><div class="visit-calendar-head"><div class="visit-month" id="visitMonthLabel"></div><div class="visit-month-actions"><button id="visitPrevMonth" type="button" aria-label="Previous month">←</button><button id="visitNextMonth" type="button" aria-label="Next month">→</button></div></div><div class="visit-weekdays" aria-hidden="true"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div><div class="visit-days" id="visitDays" role="grid" aria-label="Available visit dates"></div><p class="visit-availability">Viewings are available Tuesday to Sunday. Mondays are reserved for the Alara team.</p></div></div>
             </div>
@@ -1279,6 +1448,7 @@
         { key: "raya", name: "Raya", area: "110 sqm", lot: "121 sqm", title: "Where Memories Bloom", description: "A spacious retreat created for gathering, celebration and everyday moments.", image: "https://drive.google.com/thumbnail?id=17xxDm0QY_6IyrHVVnNwvjAagaWgBh38O&sz=w1600", plan: "https://drive.google.com/thumbnail?id=1JgEum7rcCVZRsLNbkXeWBgA8SuWjnPRK&sz=w1600", features: ["Living Area, Dining Area, Kitchen", "2 Bedrooms", "Main Bedroom with Main Toilet & Bath", "Lanai", "2 Toilet & Bath", "2 Car Park", "1 Guest Room with T&B"] },
         { key: "yana", name: "Yana", area: "130 sqm", lot: "160 sqm", title: "Where Legacies Grow", description: "A signature residence where generations come together and lasting stories are created.", image: "https://drive.google.com/thumbnail?id=1ciV3ZdmKoK6fYeOTOf8m9hawBPKEpx3H&sz=w1600", plan: "https://drive.google.com/thumbnail?id=1D9w7rmJJgmsdFztsSMT26hgenR_gTejd&sz=w1600", features: ["Living Area, Dining Area, Kitchen", "1 Guest Room, 2 Bedrooms", "Main Bedroom with Main Toilet & Bath", "Lanai", "3 Toilet & Bath", "2 Car Park", "1 Service Room"] }
       ];
+      window.alaraIndicativePrices = { veta: "₱8,915,000", zila: "₱9,501,000", raya: "₱10,246,000", yana: "₱12,725,000" };
       var viewMode = "home";
       var currentModelIndex = 0;
       var loadingStartedAt = Date.now();
@@ -1367,7 +1537,14 @@
           button.setAttribute("role", "tab");
           button.setAttribute("aria-selected", "false");
           button.innerHTML = "<strong>" + models[i].name + "</strong><small>" + models[i].area + "</small>";
-          (function (index) { button.addEventListener("click", function () { renderModel(index); }); }(i));
+          (function (index) {
+            button.addEventListener("click", function () {
+              var calcChoice;
+              renderModel(index);
+              calcChoice = document.querySelector('#calcModelSelector [data-calc-model="' + models[index].key + '"]');
+              if (calcChoice) calcChoice.click();
+            });
+          }(i));
           tabs.appendChild(button);
         }
         renderModel(0);
@@ -1571,6 +1748,45 @@
       function setupVisitCalendar() {
         var modal = byId("visitModal"), close = byId("visitClose"), done = byId("visitDone"), days = byId("visitDays"), monthLabel = byId("visitMonthLabel"), prev = byId("visitPrevMonth"), next = byId("visitNextMonth"), selectedLabel = byId("visitSelectedDate"), calendarToggle = byId("visitCalendarToggle"), calendarPopover = byId("visitCalendarPopover"), timeInput = byId("visitTime"), modelSelect = byId("visitModel"), modelChoices = document.querySelectorAll(".visit-model-choice"), form = byId("visitForm"), submit = byId("visitSubmit"), error = byId("visitError"), bookingView = byId("visitBookingView"), success = byId("visitSuccess"), successText = byId("visitSuccessText"), cursor = new Date(), today = new Date();
         if (!modal || !days) return;
+        function updateModelPreview(modelLabel) {
+          var selectedName = String(modelLabel || "").split("·")[0].trim().toLowerCase(), model = null, image, i;
+          for (i = 0; i < models.length; i += 1) if (models[i].name.toLowerCase() === selectedName) { model = models[i]; break; }
+          if (!model) return;
+          var preview = byId("visitModelPreview"), images, selectedImage, j;
+          if (!preview) return;
+          images = preview.querySelectorAll(".visit-model-preview-image");
+          selectedImage = preview.querySelector('[data-model-image="' + model.key + '"]');
+          if (!selectedImage) return;
+          preview.setAttribute("data-pending-model", model.key);
+          selectedImage.alt = model.name + " " + model.area + " Alara Village home model";
+          function activateSelectedImage() {
+            if (preview.getAttribute("data-pending-model") !== model.key) return;
+            for (j = 0; j < images.length; j += 1) {
+              var isSelected = images[j] === selectedImage;
+              images[j].classList.toggle("is-active", isSelected);
+              images[j].setAttribute("aria-hidden", isSelected ? "false" : "true");
+            }
+            preview.removeAttribute("data-pending-model");
+          }
+          selectedImage.onload = activateSelectedImage;
+          selectedImage.onerror = function () { if (preview.getAttribute("data-pending-model") === model.key) preview.removeAttribute("data-pending-model"); };
+          selectedImage.loading = "eager";
+          /* Reuse the same model.image URL that powers the House Models gallery. */
+          if (selectedImage.src !== model.image) selectedImage.src = model.image;
+          if (selectedImage.complete && selectedImage.naturalWidth > 0) activateSelectedImage();
+          byId("visitModelPreviewName").textContent = model.name + " " + model.area;
+          byId("visitModelPreviewTagline").textContent = model.title;
+          byId("visitModelPreviewSpecs").textContent = "Floor area: " + model.area + " · Lot area: " + model.lot;
+          byId("visitModelPrice").textContent = window.alaraIndicativePrices[model.key] || "Price on request";
+          byId("visitModelDescription").textContent = model.description;
+          var featureList = byId("visitModelFeatures"), featureItem;
+          if (featureList) {
+            featureList.textContent = "";
+            for (var f = 0; f < model.features.length; f += 1) { featureItem = document.createElement("li"); featureItem.textContent = model.features[f]; featureList.appendChild(featureItem); }
+          }
+        }
+        if (modelChoices.length) modelChoices[0].parentNode.addEventListener("click", function (event) { var choice = event.target.closest(".visit-model-choice"); if (choice) updateModelPreview(choice.getAttribute("data-model")); });
+        updateModelPreview(modelSelect.value);
         cursor = new Date(today.getFullYear(), today.getMonth(), 1);
         var selectedDate = null;
         function key(date) { return date.getFullYear() + "-" + String(date.getMonth() + 1).padStart(2, "0") + "-" + String(date.getDate()).padStart(2, "0"); }
@@ -1821,6 +2037,52 @@
         window.addEventListener("resize", updateVisibleFilm, false);
         updateVisibleFilm();
       }
+      (function setupSampleComputation() {
+        var section = document.getElementById("sample-computation"), selector, buttons, results, status, current = "veta", timer, frames = Object.create(null), reduceMotion, values, chartMax;
+        if (!section) return;
+        selector = document.getElementById("calcModelSelector");
+        buttons = selector.querySelectorAll(".calc-choice");
+        results = document.getElementById("calcResults");
+        status = document.getElementById("calcModelStatus");
+        reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        values = {
+          veta: { name: "Veta", floor: "85", lot: "121", tcp: window.alaraIndicativePrices.veta, dp: "₱1,783,000", rf: "₱80,000", dpMonthly: "₱70,958", loan: "₱7,132,000", terms: ["₱141,222", "₱82,809", "₱64,104", "₱55,294"] },
+          zila: { name: "Zila", floor: "96", lot: "121", tcp: window.alaraIndicativePrices.zila, dp: "₱1,900,200", rf: "₱80,000", dpMonthly: "₱75,842", loan: "₱7,600,800", terms: ["₱150,505", "₱88,252", "₱68,318", "₱58,929"] },
+          raya: { name: "Raya", floor: "110", lot: "121", tcp: window.alaraIndicativePrices.raya, dp: "₱2,049,200", rf: "₱80,000", dpMonthly: "₱82,050", loan: "₱8,196,800", terms: ["₱162,306", "₱95,172", "₱73,675", "₱63,550"] },
+          yana: { name: "Yana", floor: "130", lot: "160", tcp: window.alaraIndicativePrices.yana, dp: "₱2,545,000", rf: "₱80,000", dpMonthly: "₱102,708", loan: "₱10,180,000", terms: ["₱201,576", "₱118,198", "₱91,501", "₱78,925"] }
+        };
+        chartMax = Object.keys(values).reduce(function (maximum, key) { values[key].terms.forEach(function (amount) { maximum = Math.max(maximum, Number(amount.replace(/\D/g, ""))); }); return maximum; }, 0);
+        function numberFrom(text) { return Number(String(text).replace(/\D/g, "")) || 0; }
+        function comma(value) { return Math.round(value).toLocaleString("en-US"); }
+        function animateNumber(id, targetText, currency) {
+          var element = document.getElementById(id), start = numberFrom(element.textContent), end = numberFrom(targetText), startTime;
+          if (frames[id]) window.cancelAnimationFrame(frames[id]);
+          if (reduceMotion || start === end) { element.textContent = targetText; return; }
+          function frame(now) { if (startTime === undefined) startTime = now; var progress = Math.min(1,(now-startTime)/650), eased = 1-Math.pow(1-progress,3), number = Math.round(start+(end-start)*eased); element.textContent = (currency ? "₱" : "") + comma(number); if (progress < 1) frames[id] = window.requestAnimationFrame(frame); else { element.textContent = targetText; delete frames[id]; } }
+          frames[id] = window.requestAnimationFrame(frame);
+        }
+        function setLabel(id, text) { var element = document.getElementById(id); element.textContent = text; element.classList.remove("calc-label-arrive"); void element.offsetWidth; element.classList.add("calc-label-arrive"); }
+        function setBars(model) { model.terms.forEach(function (amount,index) { section.querySelector('[data-calc-bar="'+index+'"]').style.width = (numberFrom(amount)/chartMax*100).toFixed(2)+"%"; }); }
+        function selectModel(key) {
+          var model = values[key];
+          if (!model || key === current) return;
+          current = key; window.clearTimeout(timer); results.classList.add("is-updating"); status.textContent = model.name;
+          buttons.forEach(function (button) { button.setAttribute("aria-pressed",String(button.getAttribute("data-calc-model")===key)); });
+          timer = window.setTimeout(function () {
+            setLabel("calcModelName",model.name);
+            animateNumber("calcFloorArea",model.floor,false); animateNumber("calcLotArea",model.lot,false);
+            animateNumber("calcTcp",model.tcp,true); animateNumber("calcDownPayment",model.dp,true); animateNumber("calcReservationFee",model.rf,true);
+            animateNumber("calcDpMonthly",model.dpMonthly,true); animateNumber("calcLoan",model.loan,true);
+            animateNumber("calcTerm5",model.terms[0],true); animateNumber("calcTerm10",model.terms[1],true); animateNumber("calcTerm15",model.terms[2],true); animateNumber("calcTerm20",model.terms[3],true);
+            setBars(model); window.requestAnimationFrame(function () { results.classList.remove("is-updating"); });
+          },120);
+        }
+        selector.addEventListener("click",function (event) { var button = event.target.closest(".calc-choice"); if (button && selector.contains(button)) selectModel(button.getAttribute("data-calc-model")); });
+        selector.addEventListener("keydown",function (event) { if (event.key!=="ArrowLeft" && event.key!=="ArrowRight") return; var index=Array.prototype.indexOf.call(buttons,document.activeElement); if(index<0)return; event.preventDefault(); var step=event.key==="ArrowRight"?1:-1, next=(index+step+buttons.length)%buttons.length; buttons[next].focus(); buttons[next].click(); });
+        setBars(values.veta);
+        if (window.IntersectionObserver && !reduceMotion) { section.classList.add("has-reveal"); var observer = new IntersectionObserver(function (entries) { entries.forEach(function (entry) { if (entry.isIntersecting) { section.classList.add("is-visible"); observer.unobserve(section); } }); },{threshold:.12}); observer.observe(section); }
+        else section.classList.add("is-visible");
+      }());
     }());
   </script>
 
